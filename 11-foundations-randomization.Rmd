@@ -1,4 +1,4 @@
-# (PART) Foundations of inference {.unnumbered}
+# (PART) Foundations for inference {.unnumbered}
 
 ```{r, include = FALSE}
 source("_common.R")
@@ -19,7 +19,7 @@ terms_chp_11 <- c("hypothesis test", "confidence interval")
 ```
 
 Throughout the book so far, you have worked with data in a variety of contexts.
-You have learned how to summarize and visualize the data as well as how to model multiple variables at the same time.
+You have learned how to summarize and visualize the data and describe relationships between variables.
 Sometimes the dataset at hand represents the entire research question.
 But more often than not, the data have been collected to answer a research question about a larger group of which the data are a (hopefully) representative subset.
 
@@ -180,7 +180,7 @@ A hypothesis test is a statistical technique used to evaluate competing claims u
 Often times, the null hypothesis takes a stance of *no difference* or *no effect*.
 This hypothesis assumes that any differences seen are due to the variability inherent in the population and could have occurred by random chance.
 
-If the null hypothesis and the data notably disagree, then we will reject the null hypothesis in favor of the alternative hypothesis.
+If the null hypothesis and the data notably disagree, then we will *reject* the null hypothesis and conclude that chance alone does not explain any observed differences.  The claim that observed differences are not due to chance is the alternative hypothesis.
 
 There are many nuances to hypothesis testing, so don't worry if you aren't a master of hypothesis testing at the end of this section.
 We'll discuss these ideas and details many times in this chapter as well as in the chapters that follow.
@@ -197,6 +197,7 @@ That is, the difference in the promotion percentages would be due to the natural
 Consider the alternative hypothesis: bankers were influenced by which sex was listed on the personnel file.
 If this was true, and especially if this influence was substantial, we would expect to see some difference in the promotion rates of male and female candidates.
 If this sex bias was against female candidates, we would expect a smaller fraction of promotion recommendations for female personnel relative to the male personnel.
+Note that the alternative hypothesis requires that sex is the *only* thing that is systematically different between the different personnel files.  If this were not true, we could not conclude that any differences observed were due to sex because they might instead be due to some other variable that differs between the files.
 
 We will choose between the two competing claims by assessing if the data conflict so much with $H_0$ that the null hypothesis cannot be deemed reasonable.
 If data and the null claim seem to be at odds with one another, and the data seem to support $H_A,$ then we will reject the notion of independence and conclude that the data provide evidence of discrimination.
@@ -332,8 +333,8 @@ The difference of 29.2% is a rare event if there really is no impact from listin
 -   If $H_A,$ the **Alternative hypothesis** is true: Sex has an effect on promotion decision, and what we observed was actually due to equally qualified female candidates being discriminated against in promotion decisions, which explains the large difference of 29.2%.
 
 When we conduct formal studies, we reject a null position (the idea that the data are a result of chance only) if the data strongly conflict with that null position.[^foundations-randomization-5]
-In our analysis, we determined that there was only a $\approx$ 2% probability of obtaining a sample where $\geq$ 29.2% more male candidates than female candidates get promoted under the null hypothesis, so we conclude that the data provide strong evidence of sex discrimination against female candidates by the male supervisors.
-In this case, we reject the null hypothesis in favor of the alternative.
+In our analysis, we determined that there was only a $\approx$ 2% probability of obtaining a sample where $\geq$ 29.2% more male candidates than female candidates get promoted under the null hypothesis, so we conclude that the data provide evidence of sex discrimination against female candidates by the male supervisors.
+In this case, we reject the null hypothesis and conclude that the alternative hypothesis provides a better explanation of the observed difference.
 
 [^foundations-randomization-5]: This reasoning does not generally extend to anecdotal observations.
     Each of us observes incredibly rare events every day, events we could not possibly hope to predict.
@@ -634,14 +635,14 @@ The research question -- are female candidates discriminated against in promotio
 The null hypothesis $(H_0)$ was a perspective of no difference in promotion.
 The data on sex discrimination provided a point estimate of a `r perc_diff` difference in recommended promotion rates between male and female candidates.
 We determined that such a difference from chance alone, assuming the null hypothesis was true, would be rare: it would only happen about 2 in 100 times.
-When results like these are inconsistent with $H_0,$ we reject $H_0$ in favor of $H_A.$ Here, we concluded there was discrimination against female candidates.
+When results like these are inconsistent with $H_0$, we reject $H_0$ in favor of $H_A$. Here, we concluded there was discrimination against female candidates.
 
 The 2-in-100 chance is what we call a **p-value**, which is a probability quantifying the strength of the evidence against the null hypothesis, given the observed data.
 
 ::: {.important data-latex=""}
 **p-value.**
 
-The **p-value**\index{hypothesis testing!p-value} is the probability of observing data at least as favorable to the alternative hypothesis as our current dataset, if the null hypothesis were true.
+The **p-value**\index{hypothesis testing!p-value} is the probability of observing data that is at least as extreme as our current dataset, if the null hypothesis were true.
 We typically use a summary statistic of the data, such as a difference in proportions, to help compute the p-value and evaluate the hypotheses.
 This summary value that is used to compute the p-value is often called the **test statistic**\index{test statistic}.
 :::
@@ -661,10 +662,10 @@ In each of these examples, the **point estimate** of the difference in proportio
 :::
 
 When the p-value is small, i.e., less than a previously set threshold, we say the results are **statistically significant**\index{statistically significant}.
-This means the data provide such strong evidence against $H_0$ that we reject the null hypothesis in favor of the alternative hypothesis.
+This means the data would be so unlikely if the null hypothesis was true that we reject the null hypothesis in favor of the alternative hypothesis.
 The threshold, called the **significance level**\index{hypothesis testing!significance level}\index{significance level} and often represented by $\alpha$ (the Greek letter *alpha*).
 The value of $\alpha$ represents how rare an event needs to be in order for the null hypothesis to be rejected.
-Historically, many fields have set $\alpha = 0.05,$ meaning that the results need to occur less than 5% of the time, if the null hypothesis is to be rejected.
+Historically, many fields have set $\alpha = 0.05$, meaning that the results need to occur less than 5% of the time, if the null hypothesis is to be rejected.
 The value of $\alpha$ can vary depending on the the field or the application.
 
 ```{r include = FALSE}
@@ -730,7 +731,7 @@ knitr::include_graphics("images/fullrand.png")
 
 We can summarize the randomization test procedure as follows:
 
--   **Frame the research question in terms of hypotheses.** Hypothesis tests are appropriate for research questions that can be summarized in two competing hypotheses. The null hypothesis $(H_0)$ usually represents a skeptical perspective or a perspective of no relationship between the variables. The alternative hypothesis $(H_A)$ usually represents a new view or the existance of a relationship between the variables.
+-   **Frame the research question in terms of hypotheses.** Hypothesis tests are appropriate for research questions that can be summarized in two competing hypotheses. The null hypothesis $(H_0)$ usually represents a skeptical perspective or a perspective of no relationship between the variables. The alternative hypothesis $(H_A)$ usually represents a new view or the existence of a relationship between the variables.
 -   **Collect data with an observational study or experiment.** If a research question can be formed into two hypotheses, we can collect data to run a hypothesis test. If the research question focuses on associations between variables but does not concern causation, we would use an observational study. If the research question seeks a causal connection between two or more variables, then an experiment should be used.
 -   **Model the randomness that would occur if the null hypothesis was true.** In the examples above, the variability has been modeled as if the treatment (e.g., sexual identity, opportunity) allocation was independent of the outcome of the study. The computer generated null distribution is the result of many different randomizations and quantifies the variability that would be expected if the null hypothesis was true.
 -   **Analyze the data.** Choose an analysis technique appropriate for the data and identify the p-value. So far, we've only seen one analysis technique: randomization. Throughout the rest of this textbook, we'll encounter several new methods suitable for many other contexts.

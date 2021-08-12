@@ -94,7 +94,7 @@ Are there any concerns about outliers?[^inference-two-means-2]
 In Section \@ref(foundations-randomization), the variability of the statistic (previously: $\hat{p}_1 - \hat{p}_2)$ was visualized after shuffling the observations across the two treatment groups many times.
 The shuffling process implements the null hypothesis model (that there is no effect of the treatment).
 In the exam example, the null hypothesis is that exam A and exam B are equally difficult, so the average scores across the two tests should be the same.
-If the exams were equally difficult, *due to natural variability*, we would sometimes expect students to do slightly better on exam A $(\bar{x}_A > \bar{x}_B)$ and sometimes expect students to do slightly better on exam B $(\bar{x}_B > \bar{x}_A).$ The question at hand is: does $\bar{x}_A - \bar{x}_B=3.1$ indicate that exam A is easier than exam B.
+If the exams were equally difficult, *due to natural variability*, we would sometimes expect students to do slightly better on exam A $(\bar{x}_A > \bar{x}_B)$ and sometimes expect students to do slightly better on exam B $(\bar{x}_B > \bar{x}_A).$ The question at hand is: does $\bar{x}_A - \bar{x}_B=3.1$ indicate that exam A is easier than exam B?
 
 Figure \@ref(fig:rand2means) shows the process of randomizing the exam to the observed exam scores.
 If the null hypothesis is true, then the score on each exam should represent the true student ability on that material.
@@ -300,9 +300,11 @@ boot_2mean %>%
     )
 ```
 
-::: {.guidedpractice data-latex=""} Using the histogram of bootstrapped difference in means, estimate the standard error of the differences in sample means, $\bar{x}_{ESC} - \bar{x}_{Control}.$[^inference-two-means-3] :::
+::: {.guidedpractice data-latex=""}
+Using the histogram of bootstrapped difference in means, estimate the standard error of the differences in sample means, $\bar{x}_{ESC} - \bar{x}_{Control}.$[^inference-two-means-3]
+:::
 
-[^inference-two-means-3]: The point estimate of the population difference ($\bar{x}_{ESC} - \bar{x}_{Control}$) is 7.83.
+[^inference-two-means-3]: The boundaries of the confidence interval are around 4.5 and 12.  Since the confidence interval roughly spans 2 standard errors on *either* side of the mean, we can divide the width of the confidence interval by four to get a rough estimate of the standard error: $\frac{12 - 4.5}{4} = 1.875$.
 
 ::: {.workedexample data-latex=""}
 Choose one of the bootstrap confidence intervals for the true difference in average pumping capacity, $\mu_{ESC} - \mu_{Control}.$ Does the interval show that there is a difference across the two treatments?
@@ -371,16 +373,21 @@ births14_sample_stats <- births14_nona %>%
     SD = sd(weight)
   )
 
-xbar_nonsmoker  <- round(births14_sample_stats %>% filter(habit == "nonsmoker") %>% pull(Mean), 2)
-xbar_smoker     <- round(births14_sample_stats %>% filter(habit == "smoker") %>% pull(Mean), 2)
+xbar_nonsmoker  <- births14_sample_stats %>% filter(habit == "nonsmoker") %>% pull(Mean)
+xbar_smoker     <- births14_sample_stats %>% filter(habit == "smoker") %>% pull(Mean)
 xbar_difference <- xbar_nonsmoker - xbar_smoker
-sd_nonsmoker    <- round(births14_sample_stats %>% filter(habit == "nonsmoker") %>% pull(SD), 2)
-sd_smoker       <- round(births14_sample_stats %>% filter(habit == "smoker") %>% pull(SD), 2)
+sd_nonsmoker    <- births14_sample_stats %>% filter(habit == "nonsmoker") %>% pull(SD)
+sd_smoker       <- births14_sample_stats %>% filter(habit == "smoker") %>% pull(SD)
 n_nonsmoker     <- births14_sample_stats %>% filter(habit == "nonsmoker") %>% pull(n)
 n_smoker        <- births14_sample_stats %>% filter(habit == "smoker") %>% pull(n)
-se_difference   <- round(sqrt(sd_nonsmoker^2/n_nonsmoker + sd_smoker^2/n_smoker), 2)
-t_difference    <- round(xbar_difference / se_difference, 2)
-df_difference   <- min(n_nonsmoker-1, n_smoker-1)
+# se_difference   <- round(sqrt(sd_nonsmoker^2/n_nonsmoker + sd_smoker^2/n_smoker), 2)
+s_pool <- sqrt((sd_smoker^2 * (n_smoker - 1) + sd_nonsmoker^2 * (n_nonsmoker - 1)) / (n_smoker + n_nonsmoker - 2))
+se_difference <- s_pool * sqrt(1 / n_smoker + 1 / n_nonsmoker)
+t_difference    <- xbar_difference / se_difference
+# df_difference   <- min(n_nonsmoker-1, n_smoker-1)
+df_difference <- n_nonsmoker + n_smoker - 2
+one_tail_area <- pt(q = abs(t_difference), df = df_difference, lower.tail = FALSE)
+two_tail_area <- 2 * one_tail_area
 
 births14_sample_stats %>%
   kbl(linesep = "", booktabs = TRUE, caption = caption_helper("Summary statistics for the `births14` dataset."),
@@ -393,12 +400,13 @@ births14_sample_stats %>%
 
 ### Variability of the statistic
 
-We check the two conditions necessary to model the difference in sample means using the $t$-distribution.
+There are three conditions we need to check before we can model the difference in sample means using the $t$-distribution.  The first two are the independence and normality conditions, like we had to check before using the $t$-distribution to model a single sample mean.  The third condition is new and relates to the relative degree of variability in the two samples.
 
 -   Because the data come from a simple random sample, the observations are independent, both within and between samples.
--   With both groups over 30 observations, we inspect the data in Figure \@ref(fig:babySmokePlotOfTwoGroupsToExamineSkew) for any particularly extreme outliers and find none.
+-   Both groups have a reasonably large sample size (over 30 observations) and we don't find any particularly extreme outliers when we inspect the data in Figure \@ref(fig:babySmokePlotOfTwoGroupsToExamineSkew).
+-   Both groups have similar standard deviations, so the amount of variability within each group is similar.
 
-Since both conditions are satisfied, the difference in sample means may be modeled using a $t$-distribution.
+Since all three conditions are satisfied, the difference in sample means may be modeled using a $t$-distribution.
 
 ```{r babySmokePlotOfTwoGroupsToExamineSkew, fig.cap="The top panel represents birth weights for infants whose mothers smoked during pregnancy. The bottom panel represents the birth weights for infants whose mothers who did not smoke during pregnancy."}
 births14_nona %>%
@@ -422,31 +430,46 @@ What is the point estimate of the population difference, $\mu_{n} - \mu_{s}$?[^i
 ::: {.important data-latex=""}
 **The test statistic for comparing two means is a T.**
 
-The T score is a ratio of how the groups differ as compared to how the observations within a group vary.
+The T score is a ratio of how the groups differ as compared to how the observations within groups vary.
 
-$$T = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{\sqrt{s_1^2/n_1 + s_2^2/n_2}}$$
+$$T = \frac{(\bar{x}_1 - \bar{x}_2) - 0}{s_{\textit{pool}} \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}}$$
+where $s_{\textit{pool}}$ is the *pooled* standard deviation between the two groups:
 
-When the null hypothesis is true and the conditions are met, T has a t-distribution with $df = min(n_1 - 1, n_2 -1).$
+$$
+s_{\textit{pool}} = \sqrt{\frac{(n_1 - 1) s^2_1 + (n_2 - 1) s^2_2}{n_1 + n_2 - 2}}
+$$
+
+When the null hypothesis is true and the conditions are met, T has a t-distribution with $df = n_1 + n_2 - 2$.
 
 Conditions:
 
 -   Independent observations within and between groups.
 -   Large samples and no extreme outliers.
+-   Similar variability in both groups.
 :::
 
 ```{r include=FALSE}
-terms_chp_20 <- c(terms_chp_20, "T score", "t-test")
+terms_chp_20 <- c(terms_chp_20, "T score", "t-test", "pooled standard deviation")
 ```
+
+Like the normality condition, "similar variability"^[This condition is also called "homogeneity of variance".] is rather vague, so we introduce a rule of thumb.
+
+::: {.important data-latex=""}
+**General rule for performing the similar variability check.**
+
+As a rule of thumb for whether two samples have similar variability, calculate their sample standard deviations ($s_1$ and $s_2$) and then find their ratio $\frac{s_1}{s_2}$.  If the ratio is between 0.5 and 2, the two samples can be said to have similar amounts of variability.
+:::
 
 ::: {.guidedpractice data-latex=""}
 Compute the standard error of the point estimate for the average difference between the weights of babies born to nonsmoker and smoker mothers.[^inference-two-means-5]
 :::
 
-[^inference-two-means-5]: $SE(\bar{x}_{n} - \bar{x}_{s}) = \sqrt{s^2_{n}/ n_{n} + s^2_{s}/n_{s}}\\ = \sqrt{1.23^2/867 + 1.60^2/114} = 0.16$
+[^inference-two-means-5]: First compute the pooled standard deviation: $s_{\textit{pool}} = \sqrt{\frac{(n_n - 1) s^2_n + (n_s - 1) s^2_s}{n_n + n_s - 2}}\\ = \sqrt{\frac{(`r n_nonsmoker` - 1) `r sd_nonsmoker`^2 + (`r n_smoker` - 1) `r sd_smoker`^2}{`r n_nonsmoker` + `r n_smoker` - 2}} = `r s_pool`$.
+  Then use $s_{\textit{pool}}$ to find the standard error: $SE(\bar{x}_{n} - \bar{x}_{s}) = s_{\textit{pool}} \sqrt{1 / n_{n} + 1 / n_{s}}\\ = `r s_pool` \sqrt{1 / `r n_nonsmoker` + 1 / `r n_smoker`} = `r se_difference`$.
 
 ::: {.workedexample data-latex=""}
 Complete the hypothesis test started in the previous Example and Guided Practice on `births14` dataset and research question.
-Use a significance level of $\alpha=0.05.$ For reference, $\bar{x}_{n} - \bar{x}_{s} = `r xbar_difference`,$ $SE = `r se_difference`,$ and the sample sizes were $n_n = 100$ and $n_s = 50.$
+Use a significance level of $\alpha=0.05.$ For reference, $\bar{x}_{n} - \bar{x}_{s} = `r xbar_difference`,$ $SE = `r se_difference`,$ and the sample sizes were $n_n = `r n_nonsmoker`$ and $n_s = `r n_smoker`$.
 
 ------------------------------------------------------------------------
 
@@ -455,10 +478,11 @@ We can find the test statistic for this test using the previous information:
 $$T = \frac{\ `r xbar_difference` - 0\ }{`r se_difference`} = `r t_difference`$$
 
 We find the single tail area using software.
-We'll use the smaller of $n_n - 1 = `r n_nonsmoker-1`$ and $n_s - 1 = `r n_smoker-1`$ as the degrees of freedom: $df = `r df_difference`.$ The one tail area is roughly 0.00017; doubling this value gives the two-tail area and p-value, 0.00034.
+The degrees of freedom are $df = n_n + n_s - 2 = `r n_nonsmoker` + `r n_smoker` - 2 = `r df_difference`$.
+The one tail area is roughly 0.0000019; doubling this value gives the two-tail area and p-value, 0.0000038.
 
 The p-value is much smaller than the significance value, 0.05, so we reject the null hypothesis.
-The data provide is convincing evidence of a difference in the average weights of babies born to mothers who smoked during pregnancy and those who did not.
+The data provide convincing evidence that the difference in the average weights of babies born to mothers who smoked during pregnancy and those who did not is not a result of chance alone.
 :::
 
 This result is likely not surprising.
@@ -476,9 +500,10 @@ Furthermore, health differences between babies born to mothers who smoke and tho
 
 ### Observed data
 
-As with hypothesis testing, for the question of whether we can model the difference using a $t$-distribution, we'll need to check new conditions.
+As with hypothesis testing, for the question of whether we can model the difference using a $t$-distribution, we'll need to check some conditions.
 Like the 2-proportion cases, we will require a more robust version of independence so we are confident the two groups are also independent.
-Secondly, we also check for normality in each group separately, which in practice is a check for outliers.
+Second, we also check for normality in each group separately, which in practice is a check for outliers.
+Finally, we check whether the two groups have similar amounts of variability.
 
 ```{r include=FALSE}
 terms_chp_20 <- c(terms_chp_20, "t-CI")
@@ -493,12 +518,19 @@ The $t$-distribution can be used for inference when working with the standardize
 
 -   *Independence* (extended). The data are independent within and between the two groups, e.g., the data come from independent random samples or from a randomized experiment.
 -   *Normality*. We check the outliers for each group separately.
+-   *Similar variability*. The samples should have standard deviations that are not too different.
 
 The standard error may be computed as
+$$
+SE = s_{\textit{pool}} \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
+$$
+where $s_{\textit{pool}}$ is the *pooled* standard deviation between the two groups:
 
-$$SE = \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}$$
+$$
+s_{\textit{pool}} = \sqrt{\frac{(n_1 - 1) s^2_1 + (n_2 - 1) s^2_2}{n_1 + n_2 - 2}}
+$$
 
-The official formula for the degrees of freedom is quite complex and is generally computed using software, so instead you may use the smaller of $n_1 - 1$ and $n_2 - 1$ for the degrees of freedom if software isn't readily available.
+The degrees of freedom are given by $df = n_1 + n_2 - 2$.
 :::
 
 Recall that the margin of error is defined by the standard error.
@@ -507,7 +539,7 @@ The margin of error for $\bar{x}_1 - \bar{x}_2$ can be directly obtained from $S
 ::: {.important data-latex=""}
 **Margin of error for** $\bar{x}_1 - \bar{x}_2.$
 
-The margin of error is $t^\star_{df} \times \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}$ where $t^\star_{df}$ is calculated from a specified percentile on the t-distribution with *df* degrees of freedom.
+The margin of error is $t^\star_{df} \times s_{\textit{pool}} \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}$ where $t^\star_{df}$ is calculated from a specified percentile on the t-distribution with *df* degrees of freedom.
 :::
 
 ```{r include=FALSE}
@@ -519,7 +551,7 @@ terms_chp_20 <- c(terms_chp_20, "SE difference in means")
 ### Variability of the statistic
 
 ::: {.workedexample data-latex=""}
-Can the $t$-distribution be used to make inference using the point estimate, $\bar{x}_{esc} - \bar{x}_{control} = 7.83$?
+Can the $t$-distribution be used to make inference using the point estimate, $\bar{x}_{ESC} - \bar{x}_{control} = 7.83$ in the example above?
 
 ------------------------------------------------------------------------
 
@@ -527,9 +559,10 @@ First, we check for independence.
 Because the sheep were randomized into the groups, independence within and between groups is satisfied.
 
 Figure \@ref(fig:stem-cell-histograms) does not reveal any clear outliers in either group.
-(The ESC group does look a bit more variable, but this is not the same as having clear outliers.)
 
-With both conditions met, we can use the $t$-distribution to model the difference of sample means.
+Although the ESC group has more variability, it is not so much more that we violate the condition of similar variability ($s_{ESC} / s_{control} = 5.17 / 2.76 = 1.87$).
+
+With all conditions met, we can use the $t$-distribution to model the difference of sample means.
 :::
 
 ```{r stem-cell-histograms, fig.cap = "Histograms for the difference in heart pumping function after a heart attack for both the treatment group (ESC, which received an the embryonic stem cell treatment) and the control group (which did not receive the treatment)."}
@@ -544,35 +577,36 @@ stem_cell %>%
   )
 ```
 
-Generally, we use statistical software to find the appropriate degrees of freedom, or if software isn't available, we can use the smaller of $n_1 - 1$ and $n_2 - 1$ for the degrees of freedom, e.g., if using a $t$-table to find tail areas.
-For transparency in the Examples and Guided Practice, we'll use the latter approach for finding $df$; in the case of the ESC example, this means we'll use $df = 8.$
-
 ::: {.workedexample data-latex=""}
 Calculate a 95% confidence interval for the effect of ESCs on the change in heart pumping capacity of sheep after they've suffered a heart attack.
 
 ------------------------------------------------------------------------
 
-We will use the sample difference and the standard error that we computed earlier:
+We already computed the point estimate of the difference in means as $\bar{x}_{esc} - \bar{x}_{control} = 7.83$.
 
+The pooled standard deviation is
 $$
 \begin{aligned}
-\bar{x}_{esc} - \bar{x}_{control} &= 7.83 \\
-SE &= \sqrt{\frac{5.17^2}{9} + \frac{2.76^2}{9}} = 1.95
+s_{\textit{pool}} & = \sqrt{\frac{(n_1 - 1) s^2_1 + (n_2 - 1) s^2_2}{n_1 + n_2 - 2}} \\
+& = \sqrt{\frac{(9 - 1) 5.17^2 + (9 - 1) 2.76^2}{9 + 9 - 2}} \\
+& = \sqrt{\frac{274.8}{16}} \\
+& = 4.14
 \end{aligned}
 $$
+The standard error is $SE = s_{\textit{pool}} \sqrt{1 / n_1 + 1 / n_2} = 4.14 \sqrt{1 / 9 + 1 / 9} = 1.95$.
 
-Using $df = 8,$ we can identify the critical value of $t^{\star}_{8} = 2.31$ for a 95% confidence interval.
+Using $df = n_1 + n_2 - 2 = 9 + 9 - 2 = 16,$ we can identify the critical value of $t^{\star}_{16} = 2.12$ for a 95% confidence interval.
 Finally, we can enter the values into the confidence interval formula:
 
 $$
 \begin{aligned}
 \text{point estimate} \ &\pm\ t^{\star} \times SE \\
-7.83 \ &\pm\ 2.31\times 1.95 \\
-(3.32 \ &, \ 12.34)
+7.83 \ &\pm\ 2.12\times 1.95 \\
+(3.70 \ &, \ 11.96)
 \end{aligned} 
 $$
 
-We are 95% confident that the heart pumping function in sheep that received embryonic stem cells is between 3.32% and 12.34% higher than for sheep that did not receive the stem cell treatment.
+We are 95% confident that the heart pumping function in sheep that received embryonic stem cells is between 3.70% and 11.96% higher than for sheep that did not receive the stem cell treatment.
 :::
 
 \clearpage

@@ -67,10 +67,14 @@ options(dplyr.print_min = 6, dplyr.print_max = 6)
 # ggplot2 theme and colors -----------------------------------------------------
 
 if (knitr::is_html_output()) {
-  ggplot2::theme_set(ggplot2::theme_minimal(base_size = 13))
+  ggplot2::theme_set(ggplot2::theme_minimal(base_size = 12))
 } else if (knitr::is_latex_output()) {
-  ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+  ggplot2::theme_set(ggplot2::theme_minimal(base_size = 10))
 }
+
+par(family = "Helvetica")
+
+ggplot2::theme_update(text = element_text(family = "Helvetica"))
 
 ggplot2::update_geom_defaults("point", list(color = openintro::IMSCOL["blue","full"],
                                             fill = openintro::IMSCOL["blue","full"]))

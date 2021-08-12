@@ -5,20 +5,80 @@ source("_common.R")
 ```
 
 ::: {.chapterintro data-latex=""}
-Before digging into the details of working with data, we stop to think about how data come to be.
-That is, if the data are to be used to make broad and complete conclusions, then it is important to understand who or what the data represent.
-One important aspect of data provenance is sampling.
-Knowing how the observational units were selected from a larger entity will allow for generalizations back to the population from which the data were randomly selected.
-Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associated.
-A good question to ask oneself before working with the data at all is,"How were these observations collected?".
-You will learn a lot about the data by understanding its source.
+Before digging into the details of working with data, we stop to think about how and why data come to be.
+If the data are to be useful in drawing a conclusion, then it is important to understand who or what the data represent.
+How do the observed variables relate to our research question(s)?
+How were units selected from some larger entity?
+Knowing the answers to these kinds of questions will allow us to generalize back to the population from which the data were selected.
+Additionally, by understanding the structure of the study, causal relationships can be separated from those relationships which are only associations.
 :::
+
+## Operationalization {#operationalization}
+
+The first step in conducting research is to specify a **research question**.  Doing this in a clear and thoughtful way is necessary to identify what subjects or cases should be studied and what variables should be observed.
+
+Consider the following research question:
+
+> Do typical adults remember items at the end of a list better than those from earlier in a list?
+
+How do we decide what variables to observe in order to address this research question?  Notice that this research question is about the relationship between two concepts: *memory quality* and *time within a list*.
+
+::: {.guidedpractice data-latex=""}
+How might we measure "time within a list"?  What kind of variable would this be?[^data-design-op1]
+:::
+
+[^data-design-op1]: There are actually a few ways we could measure time within a list, and different ways result in different types of variables.
+    We could observe the amount of time that has passed since the first item in the list, resulting in a continuous numerical variable.
+    We could observe the number of items that have been presented so far, resulting in a discrete numerical variable.
+    We could pick a point within the list that divides it into "early" and "late" periods, resulting in an ordinal categorical variable.
+
+Unlike time within a list, "memory quality" is not something that can be directly observed.  Memory quality is a **theoretical construct**.  A theoretical construct is something that probably exists but that cannot be directly observed.  Many psychological concepts are theoretical constructs, including things like "happiness", "friendship", "quality of life", or "expertise".
+
+Because a theoretical construct cannot be directly observed, we have to find a way to observe it *indirectly*.  Translating a theoretical construct into something we can observe is called **operationalization**.  We "operationalize" a theoretical construct in terms of something we can observe.  The resulting variable then becomes part of our data.
+
+```{r include=FALSE}
+terms_chp_2 <- c("theoretical construct", "operationalization")
+```
+
+::: {.workedexample data-latex=""}
+How can we operationalize the theoretical construct of *memory quality*?
+
+------------------------------------------------------------------------
+
+Psychologists have many ways to operationalize memory quality, each of which yields a variable for our data.
+
+We could ask participants to recall the items from the list and count the number of correct recalls of material from different time points in the list; this would yield a discrete numerical variable.
+
+We could also show participants items from different parts of the list and measure how long it takes them to recognize that they saw each item; this would yield a continuous numerical variable.
+
+It is also possible to observe multiple variables, each of which would be a different way of operationalizing memory quality.
+:::
+
+Because there are often multiple ways to operationalize a theoretical construct, we must be concerned with **construct validity**.  Construct validity refers to how well any given operationalization reflects the theoretical construct we are actually interested in.  Different ways of operationalizing a construct may be more valid than others.  Unfortunately, because theoretical constructs cannot be directly observed (by definition), there is no way to know for sure how much construct validity an operationalization has.
+
+However, we can gain confidence in an operationalization's construct validity by looking at how the resulting variable changes across different studies and populations.  If that variable consistently changes in a way that makes sense given the definition of the theoretical construct, then our operationalization probably has good construct validity.  For example, if over many different studies and individuals, the time to recognize an item consistently decreases if we repeat the item or present it for a longer time, this gives us reason to believe the variable "time to recognize" is a valid operationalization of the theoretical construct of memory quality.
+
+```{r include=FALSE}
+terms_chp_2 <- c("construct validity")
+```
+
+Construct validity is a concern in experimental design because an experiment requires a researcher to specify how they will operationalize the theoretical constructs in their research question.  It is perhaps even more important in observational studies, where researchers often are unable to control exactly what gets observed.  As a result, any conclusions we can draw based on a survey are limited by the construct validity of the variables that were observed.
+
+::: {.guidedpractice data-latex=""}
+A researcher has access to a large representative survey of American adults.  Their research question is whether there is an association between education and wealth.  Education and wealth are theoretical constructs and must be operationalized using variables that were observed in the survey.
+
+The survey recorded each respondent's highest academic degree achieved, average high school GPA (for those who attended high school), number of years in school, and SAT scores (for those who took the SAT).
+
+The survey also recorded their annual salary, total household income, their self-reported net worth, and their self-reported credit scores.
+
+Which of these variables might be used to operationalize the theoretical construct of education?  Which of these variables might be used to operationalize the theoretical construct of wealth?  Would all of them be expected to have equal construct validity?  Can you think of any other variables that might have more construct validity than those mentioned above?[^data-design-op2]
+:::
+
+[^data-design-op2]: There are no "right" answers to these questions, but the purpose in asking them is to think about the fact that no single variable captures every aspect of a theoretical construct.  Some variables relate to the *amount* of education someone received (e.g., number of years in school), while others relate to how well they did (grades or SAT).  Some variables relate to how much someone earns (salary), while others relate to how much they own (net worth).  Even if all of these variables have good construct validity, some of them may be better suited than others to addressing different research questions.
 
 ## Sampling principles and strategies {#sampling-principles-strategies}
 
-The first step in conducting research is to identify topics or questions that are to be investigated.
-A clearly laid out research question is helpful in identifying what subjects or cases should be studied and what variables are important.
-It is also important to consider *how* data are collected so that the data are reliable and help achieve the research goals.
+Just as it is important to consider how well the variables in a dataset represent the theoretical constructs in our research question, it is important to consider *how* those data are collected.
 
 ### Populations and samples
 
@@ -52,15 +112,23 @@ For the second and third questions above, identify the target population and wha
     For the question *"Does a new drug reduce the number of deaths in patients with severe heart disease?"*, a person with severe heart disease represents a case.
     The population includes all people with severe heart disease.
 
+### Types of populations
+
+In the examples above, the term "population" referred to a group of individual people or non-human animals.  This is how the term "population" is typically used.  But in statistics, the term "population" can be used more broadly.
+
+A "population" need not refer to a set of living things.  For example, we may be interested in studying the the frequency with which different types of words are used in social media.  In that case, an individual case would be a social media post (e.g., a tweet or Facebook post) and the target population would be all social media posts (or perhaps all social media posts on a particular service within a particular span of time).
+
+A "population" might refer not to different things, but to the same thing observed at multiple times or in multiple conditions.  For example, a clinical psychologist might evaluate a patient's working memory capacity several times during a diagnostic session.  The resulting values represent a sample from the population of measurements that *could* have been taken from that patient if it were possible to do so continually.  Collecting multiple measurements is important because they will probably vary over time due to chance.
+
+Finally, a "population" need not even consist entirely of things that actually exist, but may instead represent a collection of things that *might* exist.  For example, although a particular election occurs only once, we can study whether it might have turned out differently.  We can think of an election outcome as a case from a population of *possible* elections, only one of which happened to occur.
+
 ### Parameters and statistics
 
 In the majority of statistical analysis procedures, the research question at hand boils down to understanding a numerical summary.
-The number (or set of numbers) may be a quantity you are already familiar with (like the average) or it may be something you learn through this text (like the slope and intercept from a least squares model, provided in Section \@ref(least-squares-regression)).
-
 A numerical summary can be calculated on either the sample of observation or the entire population.
-However, measuring every unit in the population is usually prohibitive (so the parameter is very rarely calculated).
+However, measuring every unit in the population is usually prohibitive.
 So, a "typical" numerical summary is calculated from a sample.
-Yet, we can still conceptualize calculating the average income of all adults in Argentina.
+Yet, we can still conceptualize calculating a numerical summary of the entire population.
 
 We use specific terms in order to differentiate when a number is being calculated on a sample of data (**statistic**) and when it is being calculated or considered for calculation on the entire population (**parameter**).
 The terms statistic and parameter are useful for communicating claims and models and will be used extensively in later chapters which delve into making inference on populations.
@@ -346,100 +414,108 @@ Why or why not?[^data-design-2]
 
 \index{random sample} \index{bias} \index{population} \index{sample}
 
-### Four sampling methods {#samp-methods}
+### Simple random sampling
 
 Almost all statistical methods are based on the notion of implied randomness.
 If data are not collected in a random framework from a population, these statistical methods -- the estimates and errors associated with the estimates -- are not reliable.
-Here we consider four random sampling techniques: simple, stratified, cluster, and multistage sampling.
-Figures \@ref(fig:simple-stratified) and \@ref(fig:cluster-multistage) provide graphical representations of these techniques.
 
-\index{simple random sampling} \index{stratified sampling}
+\index{simple random sampling}
 
-```{r simple-stratified, fig.cap="Examples of simple random and stratified sampling. In the top panel, simple random sampling was used to randomly select the 18 cases (denoted in red). In the bottom panel, stratified sampling was used: cases were first grouped into strata, then simple random sampling was employed to randomly select 3 cases within each stratum.", fig.width = 10, out.width = "100%", fig.alt = "The top box shows a population of dots (i.e., individuals) where a handful of the dots have been sampled randomly.  The bottom box shows the same population of dots but grouped in such a way that there are six strata.  From each stratum three dots (i.e., individuals) are randomly selected."}
+<!-- ```{r simple-stratified, fig.cap="Examples of simple random and stratified sampling. In the top panel, simple random sampling was used to randomly select the 18 cases (denoted in red). In the bottom panel, stratified sampling was used: cases were first grouped into strata, then simple random sampling was employed to randomly select 3 cases within each stratum.", fig.width = 10, out.width = "100%", fig.alt = "The top box shows a population of dots (i.e., individuals) where a handful of the dots have been sampled randomly.  The bottom box shows the same population of dots but grouped in such a way that there are six strata.  From each stratum three dots (i.e., individuals) are randomly selected."} -->
 
-source("helpers/helper-sampling.R")   # source helper
-par_og <- par(no.readonly = TRUE)     # save original par
-par(mar = rep(0.5,4), mfrow = c(2,1)) # no margin, 2 figures 
-build_srs(n = 18, N = 108)            # build figure
-build_stratified(N = 108)             # build figure
-par(par_og)                           # restore original par
-```
+<!-- source("helpers/helper-sampling.R")   # source helper -->
+<!-- par_og <- par(no.readonly = TRUE)     # save original par -->
+<!-- par(mar = rep(0.5,4), mfrow = c(2,1)) # no margin, 2 figures  -->
+<!-- build_srs(n = 18, N = 108)            # build figure -->
+<!-- build_stratified(N = 108)             # build figure -->
+<!-- par(par_og)                           # restore original par -->
+<!-- ``` -->
 
-**Simple random sampling** is probably the most intuitive form of random sampling.
+**Simple random sampling** is probably the most intuitive form of random sampling and the only type that we will focus on in this book as it is the basis for the statistical methods we will cover.
 Consider the salaries of Major League Baseball (MLB) players, where each player is a member of one of the league's 30 teams.
 To take a simple random sample of 120 baseball players and their salaries, we could write the names of that season's several hundreds of players onto slips of paper, drop the slips into a bucket, shake the bucket around until we are sure the names are all mixed up, then draw out slips until we have the sample of 120 players.
 In general, a sample is referred to as "simple random" if each case in the population has an equal chance of being included in the final sample *and* knowing that a case is included in a sample does not provide useful information about which other cases are included.
 
-\index{strata}
-
-**Stratified sampling** is a divide-and-conquer sampling strategy.
-The population is divided into groups called **strata**.
-The strata are chosen so that similar cases are grouped together, then a second sampling method, usually simple random sampling, is employed within each stratum.
-In the baseball salary example, each of the 30 teams could represent a strata, since some teams have a lot more money (up to 4 times as much!).
-Then we might randomly sample 4 players from each team for our sample of 120 players.
-
 ```{r include=FALSE}
-terms_chp_2 <- c(terms_chp_2, "simple random sampling", "stratified sampling", "strata")
+terms_chp_2 <- c(terms_chp_2, "simple random sampling")
 ```
 
-**Stratified sampling** is especially useful when the cases in each stratum are very similar with respect to the outcome of interest.
-The downside is that analyzing data from a stratified sample is a more complex task than analyzing data from a simple random sample.
-The analysis methods introduced in this book would need to be extended to analyze data collected using stratified sampling.
+<!-- \index{strata} -->
 
-```{r include=FALSE}
-terms_chp_2 <- c(terms_chp_2, "stratified sampling")
-```
+<!-- **Stratified sampling** is a divide-and-conquer sampling strategy. -->
+<!-- The population is divided into groups called **strata**. -->
+<!-- The strata are chosen so that similar cases are grouped together, then a second sampling method, usually simple random sampling, is employed within each stratum. -->
+<!-- In the baseball salary example, each of the 30 teams could represent a strata, since some teams have a lot more money (up to 4 times as much!). -->
+<!-- Then we might randomly sample 4 players from each team for our sample of 120 players. -->
 
-::: {.workedexample data-latex=""}
-Why would it be good for cases within each stratum to be very similar?
+<!-- ```{r include=FALSE} -->
+<!-- terms_chp_2 <- c(terms_chp_2, "stratified sampling", "strata") -->
+<!-- ``` -->
 
-------------------------------------------------------------------------
+<!-- **Stratified sampling** is especially useful when the cases in each stratum are very similar with respect to the outcome of interest. -->
+<!-- The downside is that analyzing data from a stratified sample is a more complex task than analyzing data from a simple random sample. -->
+<!-- The analysis methods introduced in this book would need to be extended to analyze data collected using stratified sampling. -->
 
-We might get a more stable estimate for the subpopulation in a stratum if the cases are very similar, leading to more precise estimates within each group.
-When we combine these estimates into a single estimate for the full population, that population estimate will tend to be more precise since each individual group estimate is itself more precise.
+<!-- ::: {.workedexample data-latex=""} -->
+<!-- Why would it be good for cases within each stratum to be very similar? -->
+
+<!-- ------------------------------------------------------------------------ -->
+
+<!-- We might get a more stable estimate for the subpopulation in a stratum if the cases are very similar, leading to more precise estimates within each group. -->
+<!-- When we combine these estimates into a single estimate for the full population, that population estimate will tend to be more precise since each individual group estimate is itself more precise. -->
+<!-- ::: -->
+
+<!-- In a **cluster sample**, we break up the population into many groups, called **clusters**. -->
+<!-- Then we sample a fixed number of clusters and include all observations from each of those clusters in the sample. -->
+<!-- A **multistage sample** is like a cluster sample, but rather than keeping all observations in each cluster, we would collect a random sample within each selected cluster. -->
+
+<!-- ```{r include=FALSE} -->
+<!-- terms_chp_2 <- c(terms_chp_2, "cluster sampling", "cluster", "multistage sample") -->
+<!-- ``` -->
+
+<!-- \index{cluster sampling} -->
+
+<!-- ```{r cluster-multistage, fig.cap="Examples of cluster and multistage sampling. In the top panel, cluster sampling was used: data were binned into nine clusters, three of these clusters were sampled, and all observations within these three clusters were included in the sample. In the bottom panel, multistage sampling was used, which differs from cluster sampling only in that we randomly select a subset of each cluster to be included in the sample rather than measuring every case in each sampled cluster.", fig.width = 10, out.width = "100%", fig.alt = "In the top figure, dots are grouped into clusters, three clusters are selected, and every dot (i.e., all individuals) from each of the three clusters are sampled.  In the bottom figure, dots are again grouped into clusters and three clusters are selected.  However, random sampling is applied so that a random sample from each of the three selected clusters is taken."} -->
+
+<!-- source("helpers/helper-sampling.R")   # source helper -->
+<!-- par_og <- par(no.readonly = TRUE)     # save original par -->
+<!-- par(mar = rep(0.5,4), mfrow = c(2,1)) # no margin, 2 figures  -->
+<!-- build_cluster()                       # build figure -->
+<!-- build_multistage()                    # build figure -->
+<!-- par(par_og)                           # restore original par -->
+<!-- ``` -->
+
+<!-- Sometimes cluster or multistage sampling can be more economical than the alternative sampling techniques. -->
+<!-- Also, unlike stratified sampling, these approaches are most helpful when there is a lot of case-to-case variability within a cluster but the clusters themselves don't look very different from one another. -->
+<!-- For example, if neighborhoods represented clusters, then cluster or multistage sampling work best when the populations inside each neighborhood are very diverse. -->
+<!-- A downside of these methods is that more advanced techniques are typically required to analyze the data, though the methods in this book can be extended to handle such data. -->
+
+<!-- ::: {.workedexample data-latex=""} -->
+<!-- Suppose we are interested in estimating the malaria rate in a densely tropical portion of rural Indonesia. -->
+<!-- We learn that there are 30 villages in that part of the Indonesian jungle, each more or less similar to the next, but the distances between the villages are substantial. -->
+<!-- Our goal is to test 150 individuals for malaria. -->
+<!-- What sampling method should be employed? -->
+
+<!-- ------------------------------------------------------------------------ -->
+
+<!-- A simple random sample would likely draw individuals from all 30 villages, which could make data collection extremely expensive. -->
+<!-- Stratified sampling would be a challenge since it is unclear how we would build strata of similar individuals. -->
+<!-- However, cluster sampling or multistage sampling seem like very good ideas. -->
+<!-- If we decided to use multistage sampling, we might randomly select half of the villages, then randomly select 10 people from each. -->
+<!-- This would probably reduce our data collection costs substantially in comparison to a simple random sample, and the cluster sample would still give us reliable information, even if we would need to analyze the data with slightly more advanced methods than we discuss in this book. -->
+<!-- ::: -->
+
+<!-- \clearpage -->
+
+::: {.important data-latex=""}
+**Randomness, chance, variability, and uncertainty.**
+
+In normal conversation, to say something is "random" or due to "chance" implies that it is unpredictable or arbitrary.  In statistics, we use the terms "random" or "chance" to describe variability in data that we cannot explain or that is irrelevant to our research question.
+
+It is entirely possible for something that seems random to be the result of a systematic and understandable process that we simply cannot explain using the data available.  As a result, the terms "random" and "chance" in statistics reflect the limitations of our knowledge and data, not necessarily something about the world at large.
+
+Much of statistics is based around identifying variability we can explain and separating it from variability that we cannot.  This allows us to describe the residual uncertainty we may have regarding any conclusions drawn from data.
 :::
-
-In a **cluster sample**, we break up the population into many groups, called **clusters**.
-Then we sample a fixed number of clusters and include all observations from each of those clusters in the sample.
-A **multistage sample** is like a cluster sample, but rather than keeping all observations in each cluster, we would collect a random sample within each selected cluster.
-
-```{r include=FALSE}
-terms_chp_2 <- c(terms_chp_2, "cluster sampling", "cluster", "multistage sample")
-```
-
-\index{cluster sampling}
-
-```{r cluster-multistage, fig.cap="Examples of cluster and multistage sampling. In the top panel, cluster sampling was used: data were binned into nine clusters, three of these clusters were sampled, and all observations within these three clusters were included in the sample. In the bottom panel, multistage sampling was used, which differs from cluster sampling only in that we randomly select a subset of each cluster to be included in the sample rather than measuring every case in each sampled cluster.", fig.width = 10, out.width = "100%", fig.alt = "In the top figure, dots are grouped into clusters, three clusters are selected, and every dot (i.e., all individuals) from each of the three clusters are sampled.  In the bottom figure, dots are again grouped into clusters and three clusters are selected.  However, random sampling is applied so that a random sample from each of the three selected clusters is taken."}
-
-source("helpers/helper-sampling.R")   # source helper
-par_og <- par(no.readonly = TRUE)     # save original par
-par(mar = rep(0.5,4), mfrow = c(2,1)) # no margin, 2 figures 
-build_cluster()                       # build figure
-build_multistage()                    # build figure
-par(par_og)                           # restore original par
-```
-
-Sometimes cluster or multistage sampling can be more economical than the alternative sampling techniques.
-Also, unlike stratified sampling, these approaches are most helpful when there is a lot of case-to-case variability within a cluster but the clusters themselves don't look very different from one another.
-For example, if neighborhoods represented clusters, then cluster or multistage sampling work best when the populations inside each neighborhood are very diverse.
-A downside of these methods is that more advanced techniques are typically required to analyze the data, though the methods in this book can be extended to handle such data.
-
-::: {.workedexample data-latex=""}
-Suppose we are interested in estimating the malaria rate in a densely tropical portion of rural Indonesia.
-We learn that there are 30 villages in that part of the Indonesian jungle, each more or less similar to the next, but the distances between the villages are substantial.
-Our goal is to test 150 individuals for malaria.
-What sampling method should be employed?
-
-------------------------------------------------------------------------
-
-A simple random sample would likely draw individuals from all 30 villages, which could make data collection extremely expensive.
-Stratified sampling would be a challenge since it is unclear how we would build strata of similar individuals.
-However, cluster sampling or multistage sampling seem like very good ideas.
-If we decided to use multistage sampling, we might randomly select half of the villages, then randomly select 10 people from each.
-This would probably reduce our data collection costs substantially in comparison to a simple random sample, and the cluster sample would still give us reliable information, even if we would need to analyze the data with slightly more advanced methods than we discuss in this book.
-:::
-
-\clearpage
 
 ## Experiments
 
@@ -484,7 +560,7 @@ terms_chp_2 <- c(terms_chp_2, "control")
 [^data-design-4]: Also called a **lurking variable**, **confounding factor**, or a **confounder**.
 
 ```{r include=FALSE}
-terms_chp_2 <- c(terms_chp_2, "replicatation", "pseudoreplication", "replication crisis")
+terms_chp_2 <- c(terms_chp_2, "replication", "pseudoreplication", "replication crisis")
 ```
 
 4.  **Blocking.** Researchers sometimes know or suspect that variables, other than the treatment, influence the response. Under these circumstances, they may first group individuals based on this variable into **blocks** and then randomize cases within each block to the treatment groups. This strategy is often referred to as **blocking**. For instance, if we are looking at the effect of a drug on heart attacks, we might first split patients in the study into low-risk and high-risk blocks, then randomly assign half the patients from each block to the control group and the other half to the treatment group, as shown in Figure \@ref(fig:blocking). This strategy ensures that each treatment group has the same number of low-risk patients and also the same number of high-risk patients.

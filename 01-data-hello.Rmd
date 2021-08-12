@@ -1,4 +1,4 @@
-# (PART) Introduction to data {.unnumbered}
+# (PART) Descriptive statistics {.unnumbered}
 
 ```{r, include = FALSE}
 source("_common.R")

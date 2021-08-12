@@ -95,7 +95,7 @@ cpr %>%
 
 Note that the distribution of these simulated differences is centered around 0.
 We simulated the differences assuming that the independence model was true, that blood thinners after CPR have no effect on survival.
-Under the null hypothesis, we expect the difference to be near zero with some random fluctuation, where *near* is pretty generous in this case since the sample sizes are so small in this study.
+Under the null hypothesis, we expect the difference to be near zero with some random fluctuation, where *near* is pretty generous in this case since the samples in this study are so small.
 
 ::: {.workedexample data-latex=""}
 How often would you observe a difference of at least 13% (0.13) according to Figure \@ref(fig:cpr-rand-dot-plot)?
@@ -107,16 +107,16 @@ It appears that a difference of at least 13% due to chance alone, if the null hy
 This is not a very rare event.
 :::
 
-The difference of 13% not being a rare event suggests two possible interpretations of the results of the study:
+There are two possible interpretations of the results of the study:
 
--   $H_0$ Independence model. Blood thinners after CPR have no effect on survival, and we just happened to observe a difference that would only occur on a rare occasion.
--   $H_A$ Alternative model. Blood thinners after CPR increase chance of survival, and the difference we observed was actually due to the blood thinners after CPR being effective at increasing the chance of survival, which explains the difference of 13%.
+-   $H_0$ Independence model. Blood thinners after CPR have no effect on survival, and the difference we observed was just due to typical random variability.
+-   $H_A$ Alternative model. Blood thinners after CPR increase chance of survival, and the difference we observed was actually due to the blood thinners after CPR being effective, which explains the difference of 13%.
 
 Since we determined that the outcome is not that rare (12% chance of observing a difference of 13% or more under the assumption that blood thinners after CPR have no effect on survival), we fail to reject $H_0$, and conclude that the study results do not provide strong evidence against the independence model.
 This doesn't mean that we have proved that blood thinners are not effective, it just means that this study does not provide convincing evidence that they are effective in this setting.
 
 Statistical inference, is built on evaluating how likely such differences are to occur due to chance if in fact the null hypothesis is true.
-In statistical inference, data scientists evaluate which model is most reasonable given the data.
+In statistical inference, we evaluate which model is most reasonable given the data.
 Errors do occur, just like rare events, and we might choose the wrong model.
 While we do not always choose correctly, statistical inference gives us tools to control and evaluate how often these errors occur.
 
@@ -168,7 +168,7 @@ Repeated bootstrap simulations lead to a bootstrap sampling distribution of the 
 Figure \@ref(fig:boot2samp1) visualizes the process and Figure \@ref(fig:bootCPR1000) shows 1,000 bootstrap differences in proportions for the CPR data.
 Note that the CPR data includes 40 and 50 people in the respective groups, and the illustrated example includes 7 and 9 people in the two groups.
 Accordingly, the variability in the distribution of sample proportions is higher for the illustrated example.
-As you will see in the mathematical models discussed in Section \@ref(math-2prop), large sample sizes lead to smaller standard errors for a difference in proportions.
+As you will see in the mathematical models discussed in Section \@ref(math-2prop), larger sample sizes lead to smaller standard errors for a difference in proportions.
 
 ```{r boot2samp1, fig.cap = "The differences in each bootstrapped pair of proportions are combined to create the sampling distribution of the differences in proportions.", out.width="100%", fig.alt = "Shown are the two infinitely large proxy populations (created from sample 1 and sample 2). From each proxy population, three resamples are shown. For each pair of resamples, the difference in bootstrap proportions is taken.  A dotplot displays many differences in bootstrap proportions. The differences range from roughly -0.6 to +0.3."}
 include_graphics("images/boot2prop1.png")
@@ -272,16 +272,16 @@ For other percentages, e.g., a 90% bootstrap SE confidence interval, we will use
 ### What does 95% mean?
 
 Recall that the goal of a confidence interval is to find a plausible range of values for a *parameter* of interest.
-The estimated statistic is not the value of interest, but it is typically the best guess for the unknown parameter.
-The confidence level (often 95%) is a number that takes a while to get used to.
-Surprisingly, the percentage doesn't describe the dataset at hand, it describes many possible datasets.
-One way to understand a confidence interval is to think about all the confidence intervals that you have ever made or that you will ever make as a scientist, the confidence level describes **those** intervals.
+The estimated statistic will almost certainly not be exactly equal to the parameter of interest, but it is typically the best guess for the unknown parameter.
+A confidence interval uses this best guess to describe what we would expect to see in *other* possible datasets, even if we never actually go on to collect those other datasets.
+This idea can take some getting used to!
 
-Figure \@ref(fig:ci25ints) demonstrates a hypothetical situation in which 25 different studies are performed on the exact same population (with the same goal of estimating the true parameter value of $p_1 - p_2 = 0.47).$ The study at hand represents one point estimate (a dot) and a corresponding interval.
-It is not possible to know whether the interval at hand is to the right of the unknown true parameter value (the black line) or to the left of that line.
+Figure \@ref(fig:ci25ints) demonstrates a hypothetical situation in which 25 different studies are performed on the exact same population (with the same goal of estimating the true parameter value of $p_1 - p_2 = 0.47).$ Any single study at hand gives us one point estimate (a dot) and a corresponding confidence interval.
+Because we do not know the true value of the parameter of interest, we cannot know whether any interval we construct using the data at hand is to the right of the true parameter value (the black line) or to the left of that line.
 It is also impossible to know whether the interval captures the true parameter (is blue) or doesn't (is red).
-If we are making 95% intervals, then about 5% of the intervals we create over our lifetime will *not* capture the parameter of interest (e.g., will be red as in Figure \@ref(fig:ci25ints) ).
-What we know is that over our lifetimes as scientists, about 95% of the intervals created and reported on will capture the parameter value of interest: thus the language "95% confident."
+If we are making 95% intervals, then about 5% of the intervals we create will *not* contain the true value of the parameter of interest (e.g., will be red as in Figure \@ref(fig:ci25ints) ).
+So when we say we are "95% confident", we are saying that 95% of the time, the interval we construct will contain the true value of the parameter of interest.
+<!-- Our level of "confidence" is the probability that the interval contains the true value of the parameter of interest. -->
 
 \clearpage
 
@@ -404,7 +404,7 @@ Check whether we can model the difference in sample proportions using the normal
 
 ------------------------------------------------------------------------
 
-We first check for independence: since this is a randomized experiment, it seems reasonable to assume that the observations are idependent.
+We first check for independence: since this is a randomized experiment, it seems reasonable to assume that the observations are independent.
 
 Next, we check the success-failure condition for each group.
 We have at least 10 successes and 10 failures in each experiment arm (11, 14, 39, 26), so this condition is also satisfied.
@@ -653,7 +653,7 @@ Thus, we do not observe benefits or harm from mammograms relative to a regular b
 Can we conclude that mammograms have no benefits or harm?
 Here are a few considerations to keep in mind when reviewing the mammogram study as well as any other medical study:
 
--   We do not accept the null hypothesis, which means we don't have sufficient evidence to conclude that mammograms reduce or increase breast cancer deaths.
+-   We fail to reject the null hypothesis, which means we don't have sufficient evidence to conclude that mammograms either reduce or increase breast cancer deaths.
 -   If mammograms are helpful or harmful, the data suggest the effect isn't very large.
 -   Are mammograms more or less expensive than a non-mammogram breast exam? If one option is much more expensive than the other and doesn't offer clear benefits, then we should lean towards the less expensive option.
 -   The study's authors also found that mammograms led to over-diagnosis of breast cancer, which means some breast cancers were found (or thought to be found) but that these cancers would not cause symptoms during patients' lifetimes. That is, something else would kill the patient before breast cancer symptoms appeared. This means some patients may have been treated for breast cancer unnecessarily, and this treatment is another cost to consider. It is also important to recognize that over-diagnosis can cause unnecessary physical or emotional harm to patients.
@@ -670,7 +670,7 @@ Experts and medical boards who study medical treatments use considerations like 
 When the parameter of interest is the difference in population proportions across two groups, randomization tests, bootstrapping, and mathematical modeling can be applied.
 For confidence intervals, bootstrapping from each group separately will provide a sampling distribution for the difference in sample proportions; the mathematical model shows a similar distributional shape as long as the sample size is large enough to fulfill the success-failure conditions and so that the data are representative of the entire population.
 Keep in mind that some datasets will produce a confidence interval which does not capture the true parameter, this is the nature of variability!
-Over your lifetime, about 95% of the confidence intervals you create will capture the parameter of interest, and about 5% won't.
+About 95% of the 95% confidence intervals you create will capture the parameter of interest, and about 5% won't.
 For hypothesis testing, repeated randomization of the explanatory variable creates a null distribution of differences in sample proportions that could have occurred under the null hypothesis.
 Randomization and the mathematical model will have similar null distributions, as long as the sample size is large enough to fulfill the success-failure conditions.
 
