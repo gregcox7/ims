@@ -19,7 +19,7 @@ Similarly, data can point to the wrong conclusion.
 However, what distinguishes statistical hypothesis tests from a court system is that our framework allows us to quantify and control how often the data lead us to the incorrect conclusion.
 
 In a hypothesis test, there are two competing hypotheses: the null and the alternative.
-We make a statement about which one might be true, but we might choose incorrectly.
+At the end of a hypothesis test, we make a statement about whether the null hypothesis might be false (leaving the alternative hypothesis as the only other option), but we might choose incorrectly.
 There are four possible scenarios in a hypothesis test, which are summarized in Table \@ref(tab:fourHTScenarios).
 
 ```{r fourHTScenarios}
@@ -95,7 +95,7 @@ The example and guided practice above provide an important lesson: if we reduce 
 \index{significance level}
 
 The **significance level** provides the cutoff for the p-value which will lead to a decision of "reject the null hypothesis." Choosing a significance level for a test is important in many contexts, and the traditional level is 0.05.
-However, it is sometimes helpful to adjust the significance level based on the application.
+However, it is sometimes helpful to adjust the significance level based on the application (see, for example, Chapter \@ref(anova-post-hoc)).
 We may select a level that is smaller or larger than 0.05 depending on the consequences of any conclusions reached from the test.
 
 If making a Type 1 Error is dangerous or especially costly, we should choose a small significance level (e.g., 0.01 or 0.001).
@@ -255,8 +255,8 @@ cpr_tail <- cpr_rand_dist %>%
 The right tail area is `r cpr_tail`.
 (Note: it is only a coincidence that we also have $\hat{p}_T - \hat{p}_C=0.13.)$ However, contrary to how we calculated the p-value in previous studies, the p-value of this test is not actually the tail area we calculated, i.e., it's not `r cpr_tail`!
 
-The p-value is defined as the probability we observe a result at least as favorable to the alternative hypothesis as the result (i.e., the difference) we observe.
-In this case, any differences less than or equal to -0.13 would also provide equally strong evidence favoring the alternative hypothesis as a difference of +0.13 did.
+The p-value is defined as the probability we observe a result at least as unusual according to the null hypothesis as the result (i.e., the difference) we observe.
+In this case, any differences less than or equal to -0.13 would also provide equally strong evidence against the alternative hypothesis as a difference of +0.13 did.
 A difference of -0.13 would correspond to 13% higher survival rate in the control group than the treatment group.
 In Figure \@ref(fig:CPR-study-p-value) we've also shaded these differences in the left tail of the distribution.
 These two shaded tails provide a visual representation of the p-value for a two-sided test.

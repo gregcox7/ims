@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-This book is intended to help students build a foundation for statistical thinking and methods.  Three basic ideas motivate the way this book is structured:
+We hope readers will take away three ideas from this book in addition to forming a foundation of statistical thinking and methods.
 
 1.  Statistics is an applied field with a wide range of practical applications.
 2.  You don't have to be a math guru to learn from interesting, real data.
@@ -8,11 +8,16 @@ This book is intended to help students build a foundation for statistical thinki
 
 #### Textbook overview {.unnumbered}
 
--   **Part 1: Descriptive statistics.** Data structures, variables, summaries, graphics, and basic data collection and study design techniques.  Data visualization and summarization, including relationships between variables.
--   **Part 2: Foundations for inference.** Case studies are used to introduce the ideas of statistical inference with randomization tests, bootstrap intervals, and mathematical models.
--   **Part 3: Statistical inference.** Further details of statistical inference using randomization tests, bootstrap intervals, and mathematical models for numerical and categorical data.
+-   **Part 1: Introduction to data.** Data structures, variables, summaries, graphics, and basic data collection and study design techniques.
+-   **Part 2: Exploratory data analysis.** Data visualization and summarisation, with particular emphasis on multivariable relationships.
+-   **Part 3: Regression modeling.** Modeling numerical and categorical outcomes with linear and logistic regression and using model results to describe relationships and made predictions.
+-   **Part 4: Foundations for inference.** Case studies are used to introduce the ideas of statistical inference with randomization tests, bootstrap intervals, and mathematical models.
+-   **Part 5: Statistical inference.** Further details of statistical inference using randomization tests, bootstrap intervals, and mathematical models for numerical and categorical data.
+-   **Part 6: Inferential modeling.** Extending inference techniques presented thus-far to linear and logistic regression settings and evaluating model performance.
 
-Each part contains multiple chapters.
+Each part contains multiple chapters and ends with a case study.
+Building on the content covered in the part, the case study uses the tools and techniques to present a high level overview.
+
 Each chapter ends with a review section which contains a chapter summary as well as a list of key terms introduced in the chapter.
 If you're not sure what some of these terms mean, we recommend you go back in the text and review their definitions.
 We purposefully present them in alphabetical order, instead of in order of appearance, so they will be a little more challenging to locate.
@@ -63,19 +68,44 @@ References for the sources of the real data are provided at the end of the book.
 #### Computing with R {.unnumbered}
 
 The narrative and the exercises in the book are computing language agnostic, however while it's possible to learn about modern statistics without computing, it's not possible to apply it.
+Therefore, we invite you to navigate the concepts you have learned in each part using the interactive R tutorials and the R labs that are included at the end of each part.
 
-Self-paced and interactive R tutorials were developed using the [learnr](https://rstudio.github.io/learnr/index.html) R package, and only an internet browser is needed to complete them.
+**Interactive R tutorials**
 
-```{asis, echo = knitr::is_latex_output()}
-You can access the full list of tutorials supporting this book at\
-[https://openintrostat.github.io/ims-tutorials](https://openintrostat.github.io/ims-tutorials).
-```
+The self-paced and interactive R tutorials were developed using the [learnr](https://rstudio.github.io/learnr/index.html) R package, and only an internet browser is needed to complete them.
 
-```{asis, echo = knitr::is_html_output()}
+::: {.alltutorials data-latex=""}
+Each part comes with a tutorial comprised of 4-10 lessons and listed like this.
+:::
+
+::: {.singletutorial data-latex=""}
+Each of these lessons...
+:::
+
+::: {.singletutorial data-latex=""}
+... is listed like this.
+:::
+
+
+
 You can access the full list of tutorials supporting this book [here](https://openintrostat.github.io/ims-tutorials).
-```
 
 \clearpage
+
+**R labs**
+
+Once you feel comfortable with the material in the tutorials, we also encourage you to apply what you've learned via the computational labs that are also linked at the end of each part.
+The labs consist of data analysis case studies, and they require access to [R](https://cran.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/).
+The first lab includes installation instructions.
+If you'd rather not install the software locally, you can also try [RStudio Cloud](https://rstudio.cloud/) for free.
+
+::: {.singlelab data-latex=""}
+Labs for each part are listed like this.
+:::
+
+
+
+You can access the full list of labs supporting this book [here](https://www.openintro.org/go?id=ims-r-labs).
 
 #### OpenIntro, online resources, and getting involved {.unnumbered}
 

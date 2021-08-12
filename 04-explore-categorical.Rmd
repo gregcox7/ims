@@ -1,13 +1,13 @@
-# (PART) Exploratory data analysis {.unnumbered}
+<!-- # (PART) Exploratory data analysis {.unnumbered} -->
 
 ```{r, include = FALSE}
 source("_common.R")
 ```
 
-# Exploring categorical data {#explore-categorical}
+# Describing categorical data {#explore-categorical}
 
 ::: {.chapterintro data-latex=""}
-This chapter focuses on exploring **categorical** data using summary statistics and visualizations.
+This chapter focuses on describing **categorical** data using summary statistics and visualizations.
 The summaries and graphs presented in this chapter are created using statistical software; however, since this might be your first exposure to the concepts, we take our time in this chapter to detail how to create them.
 Where possible, we present multivariate plots; plots that visualize the relationship between multiple variables.
 Mastery of the content presented in this chapter will be crucial for understanding the methods and techniques introduced in the rest of the book.
@@ -100,7 +100,7 @@ p_count + p_proportion
 
 ## Visualizing two categorical variables
 
-### Bar plots with two variables
+<!-- ### Bar plots with two variables -->
 
 We can display the distributions of two categorical variables on a bar plot concurrently.
 Such plots are generally useful for visualizing the relationship between two categorical variables.
@@ -157,54 +157,54 @@ The standardized stacked bar plot is helpful if the primary variable in the stac
 The major downside of the standardized version is that we lose all sense of how many cases each of the bars represents.
 :::
 
-### Mosaic plots
+<!-- ### Mosaic plots -->
 
-A **mosaic plot** is a visualization technique suitable for contingency tables that resembles a standardized stacked bar plot with the benefit that we still see the relative group sizes of the primary variable as well.
+<!-- A **mosaic plot** is a visualization technique suitable for contingency tables that resembles a standardized stacked bar plot with the benefit that we still see the relative group sizes of the primary variable as well. -->
 
-```{r include=FALSE}
-terms_chp_4 <- c(terms_chp_4, "mosaic plot")
-```
+<!-- ```{r include=FALSE} -->
+<!-- terms_chp_4 <- c(terms_chp_4, "mosaic plot") -->
+<!-- ``` -->
 
-To get started in creating our first mosaic plot, we'll break a square into columns for each category of the variable, with the result shown in Plot A of Figure \@ref(fig:loan-homeownership-type-mosaic-plot).
-Each column represents a level of `homeownership`, and the column widths correspond to the proportion of loans in each of those categories.
-For instance, there are fewer loans where the borrower is an owner than where the borrower has a mortgage.
-In general, mosaic plots use box *areas* to represent the number of cases in each category.
+<!-- To get started in creating our first mosaic plot, we'll break a square into columns for each category of the variable, with the result shown in Plot A of Figure \@ref(fig:loan-homeownership-type-mosaic-plot). -->
+<!-- Each column represents a level of `homeownership`, and the column widths correspond to the proportion of loans in each of those categories. -->
+<!-- For instance, there are fewer loans where the borrower is an owner than where the borrower has a mortgage. -->
+<!-- In general, mosaic plots use box *areas* to represent the number of cases in each category. -->
 
-Plot B in Figure \@ref(fig:loan-homeownership-type-mosaic-plot) displays the relationship between homeownership and application type.
-Each column is split proportionally to the number of loans from individual and joint borrowers.
-For example, the second column represents loans where the borrower has a mortgage, and it was divided into individual loans (upper) and joint loans (lower).
-As another example, the bottom segment of the third column represents loans where the borrower owns their home and applied jointly, while the upper segment of this column represents borrowers who are homeowners and filed individually.
-We can again use this plot to see that the `homeownership` and `application_type` variables are associated, since some columns are divided in different vertical locations than others, which was the same technique used for checking an association in the standardized stacked bar plot.
+<!-- Plot B in Figure \@ref(fig:loan-homeownership-type-mosaic-plot) displays the relationship between homeownership and application type. -->
+<!-- Each column is split proportionally to the number of loans from individual and joint borrowers. -->
+<!-- For example, the second column represents loans where the borrower has a mortgage, and it was divided into individual loans (upper) and joint loans (lower). -->
+<!-- As another example, the bottom segment of the third column represents loans where the borrower owns their home and applied jointly, while the upper segment of this column represents borrowers who are homeowners and filed individually. -->
+<!-- We can again use this plot to see that the `homeownership` and `application_type` variables are associated, since some columns are divided in different vertical locations than others, which was the same technique used for checking an association in the standardized stacked bar plot. -->
 
-```{r loan-homeownership-type-mosaic-plot, fig.cap = "The mosaic plots: one for homeownership alone and the other displaying the relationship between homeownership and application type.", fig.asp = 0.5}
-p_mosaic_1 <- ggplot(loans) +
-  geom_mosaic(aes(x = product(homeownership)), fill = IMSCOL["green", "full"]) +
-  labs(x = "Homeownership", y = "") +
-  theme(axis.title.y = element_blank(),
-        axis.text.y  = element_blank(),
-        axis.ticks.y = element_blank())
+<!-- ```{r loan-homeownership-type-mosaic-plot, fig.cap = "The mosaic plots: one for homeownership alone and the other displaying the relationship between homeownership and application type.", fig.asp = 0.5} -->
+<!-- p_mosaic_1 <- ggplot(loans) + -->
+<!--   geom_mosaic(aes(x = product(homeownership)), fill = IMSCOL["green", "full"]) + -->
+<!--   labs(x = "Homeownership", y = "") + -->
+<!--   theme(axis.title.y = element_blank(), -->
+<!--         axis.text.y  = element_blank(), -->
+<!--         axis.ticks.y = element_blank()) -->
 
-p_mosaic_2 <- ggplot(loans) +
-  geom_mosaic(aes(x = product(homeownership), fill = application_type)) +
-  scale_fill_manual(values = c(IMSCOL["blue", "full"], IMSCOL["yellow", "full"])) +
-  labs(x = "Homeownership", y = "Application type") +
-  guides(fill = FALSE)
+<!-- p_mosaic_2 <- ggplot(loans) + -->
+<!--   geom_mosaic(aes(x = product(homeownership), fill = application_type)) + -->
+<!--   scale_fill_manual(values = c(IMSCOL["blue", "full"], IMSCOL["yellow", "full"])) + -->
+<!--   labs(x = "Homeownership", y = "Application type") + -->
+<!--   guides(fill = FALSE) -->
 
-p_mosaic_1 + p_mosaic_2 +
-  plot_annotation(tag_levels = "A")
-```
+<!-- p_mosaic_1 + p_mosaic_2 + -->
+<!--   plot_annotation(tag_levels = "A") -->
+<!-- ``` -->
 
-In Figure \@ref(fig:loan-homeownership-type-mosaic-plot), we chose to first split by the homeowner status of the borrower.
-However, we could have instead first split by the application type, as in Figure \@ref(fig:loan-app-type-mosaic-plot).
-Like with the bar plots, it's common to use the explanatory variable to represent the first split in a mosaic plot, and then for the response to break up each level of the explanatory variable, if these labels are reasonable to attach to the variables under consideration.
+<!-- In Figure \@ref(fig:loan-homeownership-type-mosaic-plot), we chose to first split by the homeowner status of the borrower. -->
+<!-- However, we could have instead first split by the application type, as in Figure \@ref(fig:loan-app-type-mosaic-plot). -->
+<!-- Like with the bar plots, it's common to use the explanatory variable to represent the first split in a mosaic plot, and then for the response to break up each level of the explanatory variable, if these labels are reasonable to attach to the variables under consideration. -->
 
-```{r loan-app-type-mosaic-plot, fig.cap = "Mosaic plot where loans are grouped by homeownership after they have been divided into individual and joint application types."}
-ggplot(loans) +
-  geom_mosaic(aes(x = product(application_type), fill = homeownership)) +
-  scale_fill_openintro("hot") +
-  labs(x = "Application type", y = "Homeownership") +
-  guides(fill = FALSE)
-```
+<!-- ```{r loan-app-type-mosaic-plot, fig.cap = "Mosaic plot where loans are grouped by homeownership after they have been divided into individual and joint application types."} -->
+<!-- ggplot(loans) + -->
+<!--   geom_mosaic(aes(x = product(application_type), fill = homeownership)) + -->
+<!--   scale_fill_openintro("hot") + -->
+<!--   labs(x = "Application type", y = "Homeownership") + -->
+<!--   guides(fill = FALSE) -->
+<!-- ``` -->
 
 ## Row and column proportions
 
@@ -383,40 +383,40 @@ p_bar <- loans %>%
 p_pie + p_bar
 ```
 
-## Waffle charts
+<!-- ## Waffle charts -->
 
-Another useful technique of visualizing categorical data is a **waffle chart**.
-Waffle charts can be used to communicate the proportion of the data that falls into each level of a categorical variable.
-Just like with pie charts, they work best when the number of levels represented is low.
-However, unlike pie charts, they can make it easier to compare proportions that represent non-simple fractions.
-Figure \@ref(fig:loan-waffle) displays two examples of waffle charts: one for the distribution of homeownership and the other for the distribution of loan status.
+<!-- Another useful technique of visualizing categorical data is a **waffle chart**. -->
+<!-- Waffle charts can be used to communicate the proportion of the data that falls into each level of a categorical variable. -->
+<!-- Just like with pie charts, they work best when the number of levels represented is low. -->
+<!-- However, unlike pie charts, they can make it easier to compare proportions that represent non-simple fractions. -->
+<!-- Figure \@ref(fig:loan-waffle) displays two examples of waffle charts: one for the distribution of homeownership and the other for the distribution of loan status. -->
 
-```{r loan-waffle, fig.cap = "Plot A: Waffle chart of homeownership, with levels rent, morgage, and own. Plot B: Waffle chart of loan status, with levels current, fully paid, in grade period, and late.", fig.asp = 0.5, fig.width=8}
-p_waffle_homeownership <- loans %>%
-  count(homeownership) %>%
-  ggplot(aes(fill = homeownership, values = n)) +
-  geom_waffle(colour = "white", flip = TRUE, make_proportional = TRUE) +
-  labs(fill = NULL, title = "Homeownership") +
-  scale_fill_openintro("hot") +
-  coord_equal() +
-  theme_enhance_waffle() +
-  theme(legend.position = "bottom")
+<!-- ```{r loan-waffle, fig.cap = "Plot A: Waffle chart of homeownership, with levels rent, morgage, and own. Plot B: Waffle chart of loan status, with levels current, fully paid, in grade period, and late.", fig.asp = 0.5, fig.width=8} -->
+<!-- p_waffle_homeownership <- loans %>% -->
+<!--   count(homeownership) %>% -->
+<!--   ggplot(aes(fill = homeownership, values = n)) + -->
+<!--   geom_waffle(colour = "white", flip = TRUE, make_proportional = TRUE) + -->
+<!--   labs(fill = NULL, title = "Homeownership") + -->
+<!--   scale_fill_openintro("hot") + -->
+<!--   coord_equal() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   theme(legend.position = "bottom") -->
 
-p_waffle_loan_status <- loans %>%
-  count(loan_status) %>%
-  ggplot(aes(fill = loan_status, values = n)) +
-  geom_waffle(colour = "white", flip = TRUE, make_proportional = TRUE)  +
-  labs(fill = NULL, title = "Loan status") +
-  scale_fill_openintro("four") +
-  coord_equal() +
-  theme_enhance_waffle() +
-  theme(legend.position = "bottom") +
-  guides(fill=guide_legend(nrow = 2))
+<!-- p_waffle_loan_status <- loans %>% -->
+<!--   count(loan_status) %>% -->
+<!--   ggplot(aes(fill = loan_status, values = n)) + -->
+<!--   geom_waffle(colour = "white", flip = TRUE, make_proportional = TRUE)  + -->
+<!--   labs(fill = NULL, title = "Loan status") + -->
+<!--   scale_fill_openintro("four") + -->
+<!--   coord_equal() + -->
+<!--   theme_enhance_waffle() + -->
+<!--   theme(legend.position = "bottom") + -->
+<!--   guides(fill=guide_legend(nrow = 2)) -->
 
-p_waffle_homeownership +
-  p_waffle_loan_status +
-  plot_annotation(tag_levels = "A")
-```
+<!-- p_waffle_homeownership + -->
+<!--   p_waffle_loan_status + -->
+<!--   plot_annotation(tag_levels = "A") -->
+<!-- ``` -->
 
 ## Comparing numerical data across groups
 
@@ -537,8 +537,8 @@ terms_chp_4 <- c(terms_chp_4, "ridge plot")
 ```{r countyIncomeSplitByPopGainRidge, fig.cap="Ridge plot for median household income, where counties are split by whether there was a population gain or not."}
 county %>%
   filter(!is.na(pop_change)) %>%
-  ggplot(aes(x = median_hh_income, y = pop_change_2levels, 
-             fill = pop_change_2levels, color = pop_change_2levels)) + 
+  ggplot(aes(x = median_hh_income, y = pop_change_2levels,
+             fill = pop_change_2levels, color = pop_change_2levels)) +
   geom_density_ridges(alpha = 0.5) +
   scale_fill_openintro("two") +
   scale_color_openintro("two") +

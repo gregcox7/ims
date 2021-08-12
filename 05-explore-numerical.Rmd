@@ -1,11 +1,11 @@
-# Exploring numerical data {#explore-numerical}
+# Describing numerical data {#explore-numerical}
 
 ```{r, include = FALSE}
 source("_common.R")
 ```
 
 ::: {.chapterintro data-latex=""}
-This chapter focuses on exploring **numerical** data using summary statistics and visualizations.
+This chapter focuses on describing **numerical** data using summary statistics and visualizations.
 The summaries and graphs presented in this chapter are created using statistical software; however, since this might be your first exposure to the concepts, we take our time in this chapter to detail how to create them.
 Mastery of the content presented in this chapter will be crucial for understanding the methods and techniques introduced in the rest of the book.
 :::
@@ -322,7 +322,7 @@ A **mode** is represented by a prominent peak in the distribution.
 There is only one prominent peak in the histogram of `interest_rate`.
 
 A definition of *mode* sometimes taught in math classes is the value with the most occurrences in the dataset.
-However, for many real-world datasets, it is common to have *no* observations with the same value in a dataset, making this definition impractical in data analysis.
+However, for many real-world datasets, it is common to have *no* observations with exactly the same value in a dataset, making this definition impractical in data analysis.
 
 Figure \@ref(fig:singleBiMultiModalPlots) shows histograms that have one, two, or three prominent peaks.
 Such distributions are called **unimodal**, **bimodal**, and **multimodal**, respectively.
@@ -330,7 +330,7 @@ Any distribution with more than two prominent peaks is called multimodal.
 Notice that there was one prominent peak in the unimodal distribution with a second less prominent peak that was not counted since it only differs from its neighboring bins by a few observations.
 
 ```{r include=FALSE}
-terms_chp_5 <- c(terms_chp_5, "unimodal", "bimodal", "multimodal")
+terms_chp_5 <- c(terms_chp_5, "mode", "unimodal", "bimodal", "multimodal")
 ```
 
 ```{r singleBiMultiModalPlots, fig.cap = "Counting only prominent peaks, the distributions are (left to right) unimodal, bimodal, and multimodal. Note that the left plot is unimodal because we are counting prominent peaks, not just any peak.", fig.asp = 0.33, out.width = "90%"}
@@ -942,141 +942,141 @@ Transformations other than the logarithm can be useful, too.
 For instance, the square root $(\sqrt{\text{original observation}})$ and inverse $\bigg ( \frac{1}{\text{original observation}} \bigg )$ are commonly used by data scientists.
 Common goals in transforming data are to see the data structure differently, reduce skew, assist in modeling, or straighten a nonlinear relationship in a scatterplot.
 
-## Mapping data
+<!-- ## Mapping data -->
 
-\index{intensity map}
+<!-- \index{intensity map} -->
 
-The `county` dataset offers many numerical variables that we could plot using dot plots, scatterplots, or box plots, but they can miss the true nature of the data as geographic.
-When we encounter geographic data, we should create an **intensity map**, where colors are used to show higher and lower values of a variable.
-Figures \@ref(fig:county-intensity-map-poverty-unemp) and \@ref(fig:county-intensity-map-howownership-median-income) show intensity maps for poverty rate in percent (`poverty`), unemployment rate in percent (`unemployment_rate`), homeownership rate in percent (`homeownership`), and median household income in \$1000s (`median_hh_income`).
-The color key indicates which colors correspond to which values.
-The intensity maps are not generally very helpful for getting precise values in any given county, but they are very helpful for seeing geographic trends and generating interesting research questions or hypotheses.
+<!-- The `county` dataset offers many numerical variables that we could plot using dot plots, scatterplots, or box plots, but they can miss the true nature of the data as geographic. -->
+<!-- When we encounter geographic data, we should create an **intensity map**, where colors are used to show higher and lower values of a variable. -->
+<!-- Figures \@ref(fig:county-intensity-map-poverty-unemp) and \@ref(fig:county-intensity-map-howownership-median-income) show intensity maps for poverty rate in percent (`poverty`), unemployment rate in percent (`unemployment_rate`), homeownership rate in percent (`homeownership`), and median household income in \$1000s (`median_hh_income`). -->
+<!-- The color key indicates which colors correspond to which values. -->
+<!-- The intensity maps are not generally very helpful for getting precise values in any given county, but they are very helpful for seeing geographic trends and generating interesting research questions or hypotheses. -->
 
-```{r include=FALSE}
-terms_chp_5 <- c(terms_chp_5, "intensity map")
-```
+<!-- ```{r include=FALSE} -->
+<!-- terms_chp_5 <- c(terms_chp_5, "intensity map") -->
+<!-- ``` -->
 
-::: {.workedexample data-latex=""}
-What interesting features are evident in the poverty and unemployment rate intensity maps?
+<!-- ::: {.workedexample data-latex=""} -->
+<!-- What interesting features are evident in the poverty and unemployment rate intensity maps? -->
 
-------------------------------------------------------------------------
+<!-- ------------------------------------------------------------------------ -->
 
-Poverty rates are evidently higher in a few locations.
-Notably, the deep south shows higher poverty rates, as does much of Arizona and New Mexico.
-High poverty rates are evident in the Mississippi flood plains a little north of New Orleans and also in a large section of Kentucky.
+<!-- Poverty rates are evidently higher in a few locations. -->
+<!-- Notably, the deep south shows higher poverty rates, as does much of Arizona and New Mexico. -->
+<!-- High poverty rates are evident in the Mississippi flood plains a little north of New Orleans and also in a large section of Kentucky. -->
 
-The unemployment rate follows similar trends, and we can see correspondence between the two variables.
-In fact, it makes sense for higher rates of unemployment to be closely related to poverty rates.
-One observation that stands out when comparing the two maps: the poverty rate is much higher than the unemployment rate, meaning while many people may be working, they are not making enough to break out of poverty.
-:::
+<!-- The unemployment rate follows similar trends, and we can see correspondence between the two variables. -->
+<!-- In fact, it makes sense for higher rates of unemployment to be closely related to poverty rates. -->
+<!-- One observation that stands out when comparing the two maps: the poverty rate is much higher than the unemployment rate, meaning while many people may be working, they are not making enough to break out of poverty. -->
+<!-- ::: -->
 
-::: {.guidedpractice data-latex=""}
-What interesting features are evident in the median household income intensity map in Figure \@ref(fig:county-intensity-map-howownership-median-income)?[^explore-numerical-14]
-:::
+<!-- ::: {.guidedpractice data-latex=""} -->
+<!-- What interesting features are evident in the median household income intensity map in Figure \@ref(fig:county-intensity-map-howownership-median-income)?[^explore-numerical-14] -->
+<!-- ::: -->
 
-[^explore-numerical-14]: Answers will vary.
-    There is some correspondence between high earning and metropolitan areas, where we can see darker spots (higher median household income), though there are several exceptions.
-    You might look for large cities you are familiar with and try to spot them on the map as dark spots.
+<!-- [^explore-numerical-14]: Answers will vary. -->
+<!--     There is some correspondence between high earning and metropolitan areas, where we can see darker spots (higher median household income), though there are several exceptions. -->
+<!--     You might look for large cities you are familiar with and try to spot them on the map as dark spots. -->
 
-```{r county-map-prep}
-dfips <- maps::county.fips %>%
-  as_tibble() %>% 
-  extract(polyname, c("region", "subregion"), "^([^,]+),([^,]+)$")
+<!-- ```{r county-map-prep} -->
+<!-- dfips <- maps::county.fips %>% -->
+<!--   as_tibble() %>%  -->
+<!--   extract(polyname, c("region", "subregion"), "^([^,]+),([^,]+)$") -->
 
-map_county <- map_data("county") %>%
-  as_tibble() %>%
-  left_join(dfips) %>%
-  mutate(fips = case_when(
-    subregion == "okaloosa"  & region == "florida"        ~ 12091L,
-    subregion == "st martin" & region == "louisiana"      ~ 22099L,
-    subregion == "currituck" & region == "north carolina" ~ 37053L,
-    # Oglala Lakota Count, see https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota
-    subregion == "shannon"   & region == "south dakota"   ~ 46113L, 
-    subregion == "galveston" & region == "texas"          ~ 48167L,
-    subregion == "accomack"  & region == "virginia"       ~ 51001L,
-    subregion == "pierce"    & region == "washington"     ~ 53053L,
-    subregion == "san juan"  & region == "washington"     ~ 53055L,
-    TRUE ~ fips
-  ))
+<!-- map_county <- map_data("county") %>% -->
+<!--   as_tibble() %>% -->
+<!--   left_join(dfips) %>% -->
+<!--   mutate(fips = case_when( -->
+<!--     subregion == "okaloosa"  & region == "florida"        ~ 12091L, -->
+<!--     subregion == "st martin" & region == "louisiana"      ~ 22099L, -->
+<!--     subregion == "currituck" & region == "north carolina" ~ 37053L, -->
+<!--     # Oglala Lakota Count, see https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota -->
+<!--     subregion == "shannon"   & region == "south dakota"   ~ 46113L,  -->
+<!--     subregion == "galveston" & region == "texas"          ~ 48167L, -->
+<!--     subregion == "accomack"  & region == "virginia"       ~ 51001L, -->
+<!--     subregion == "pierce"    & region == "washington"     ~ 53053L, -->
+<!--     subregion == "san juan"  & region == "washington"     ~ 53055L, -->
+<!--     TRUE ~ fips -->
+<!--   )) -->
 
-county_for_map <- county_complete %>%
-  select(fips, name, state, poverty_2017, unemployment_rate_2017, homeownership_2010, median_household_income_2017)
+<!-- county_for_map <- county_complete %>% -->
+<!--   select(fips, name, state, poverty_2017, unemployment_rate_2017, homeownership_2010, median_household_income_2017) -->
 
-map_county <- map_county %>%
-  left_join(county_for_map, by = "fips")
-```
+<!-- map_county <- map_county %>% -->
+<!--   left_join(county_for_map, by = "fips") -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
-```{r county-intensity-map-poverty-unemp, fig.cap = "Plot A: Intensity map of poverty rate (percent). Plot B: Intensity map of the unemployment rate (percent).", fig.width = 10, fig.asp = 1}
-map_poverty <- ggplot(map_county, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = poverty_2017)) +
-  scale_fill_viridis_c(option = "D", labels = label_percent(scale = 1)) +
-  labs(x = NULL, y = NULL, fill = "Poverty") +
-  theme(axis.title.x = element_blank(),
-        axis.text.x  = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y  = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
+<!-- ```{r county-intensity-map-poverty-unemp, fig.cap = "Plot A: Intensity map of poverty rate (percent). Plot B: Intensity map of the unemployment rate (percent).", fig.width = 10, fig.asp = 1} -->
+<!-- map_poverty <- ggplot(map_county, aes(x = long, y = lat, group = group)) + -->
+<!--   geom_polygon(aes(fill = poverty_2017)) + -->
+<!--   scale_fill_viridis_c(option = "D", labels = label_percent(scale = 1)) + -->
+<!--   labs(x = NULL, y = NULL, fill = "Poverty") + -->
+<!--   theme(axis.title.x = element_blank(), -->
+<!--         axis.text.x  = element_blank(), -->
+<!--         axis.ticks.x = element_blank(), -->
+<!--         axis.title.y = element_blank(), -->
+<!--         axis.text.y  = element_blank(), -->
+<!--         axis.ticks.y = element_blank(), -->
+<!--         panel.grid.major = element_blank(), -->
+<!--         panel.grid.minor = element_blank()) -->
 
-map_unemp <- ggplot(map_county, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = unemployment_rate_2017)) +
-  scale_fill_viridis_c(option = "A", labels = label_percent(scale = 1, accuracy = 1)) +
-  labs(x = NULL, y = NULL, fill = "Unemployment\nrate") +
-  theme(axis.title.x = element_blank(),
-        axis.text.x  = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y  = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
+<!-- map_unemp <- ggplot(map_county, aes(x = long, y = lat, group = group)) + -->
+<!--   geom_polygon(aes(fill = unemployment_rate_2017)) + -->
+<!--   scale_fill_viridis_c(option = "A", labels = label_percent(scale = 1, accuracy = 1)) + -->
+<!--   labs(x = NULL, y = NULL, fill = "Unemployment\nrate") + -->
+<!--   theme(axis.title.x = element_blank(), -->
+<!--         axis.text.x  = element_blank(), -->
+<!--         axis.ticks.x = element_blank(), -->
+<!--         axis.title.y = element_blank(), -->
+<!--         axis.text.y  = element_blank(), -->
+<!--         axis.ticks.y = element_blank(), -->
+<!--         panel.grid.major = element_blank(), -->
+<!--         panel.grid.minor = element_blank()) -->
 
-map_poverty / 
-  map_unemp +
-  plot_annotation(tag_levels = "A") & 
-  theme(plot.tag = element_text(size = 10))
-```
+<!-- map_poverty /  -->
+<!--   map_unemp + -->
+<!--   plot_annotation(tag_levels = "A") &  -->
+<!--   theme(plot.tag = element_text(size = 10)) -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
-```{r county-intensity-map-howownership-median-income, fig.cap = "Plot A: Intensity map of homeownership rate (percent). Plot B: Intensity map of median household income (in thousands of USD).", fig.width = 10, fig.asp = 1}
-map_howownership <- ggplot(map_county, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = homeownership_2010)) +
-  scale_fill_viridis_c(option = "B", labels = label_percent(scale = 1)) +
-  labs(x = NULL, y = NULL, fill = "Homeownership\nrate") +
-  theme(axis.title.x = element_blank(),
-        axis.text.x  = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y  = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank()) 
+<!-- ```{r county-intensity-map-howownership-median-income, fig.cap = "Plot A: Intensity map of homeownership rate (percent). Plot B: Intensity map of median household income (in thousands of USD).", fig.width = 10, fig.asp = 1} -->
+<!-- map_howownership <- ggplot(map_county, aes(x = long, y = lat, group = group)) + -->
+<!--   geom_polygon(aes(fill = homeownership_2010)) + -->
+<!--   scale_fill_viridis_c(option = "B", labels = label_percent(scale = 1)) + -->
+<!--   labs(x = NULL, y = NULL, fill = "Homeownership\nrate") + -->
+<!--   theme(axis.title.x = element_blank(), -->
+<!--         axis.text.x  = element_blank(), -->
+<!--         axis.ticks.x = element_blank(), -->
+<!--         axis.title.y = element_blank(), -->
+<!--         axis.text.y  = element_blank(), -->
+<!--         axis.ticks.y = element_blank(), -->
+<!--         panel.grid.major = element_blank(), -->
+<!--         panel.grid.minor = element_blank())  -->
 
-map_median_income <- ggplot(map_county, aes(x = long, y = lat, group = group)) +
-  geom_polygon(aes(fill = median_household_income_2017)) +
-  scale_fill_viridis_c(option = "C", labels = label_dollar(scale = 0.001, suffix = "K")) +
-  labs(x = NULL, y = NULL, fill = "Median\nhousehold\nincome") +
-  theme(axis.title.x = element_blank(),
-        axis.text.x  = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.text.y  = element_blank(),
-        axis.ticks.y = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank())
+<!-- map_median_income <- ggplot(map_county, aes(x = long, y = lat, group = group)) + -->
+<!--   geom_polygon(aes(fill = median_household_income_2017)) + -->
+<!--   scale_fill_viridis_c(option = "C", labels = label_dollar(scale = 0.001, suffix = "K")) + -->
+<!--   labs(x = NULL, y = NULL, fill = "Median\nhousehold\nincome") + -->
+<!--   theme(axis.title.x = element_blank(), -->
+<!--         axis.text.x  = element_blank(), -->
+<!--         axis.ticks.x = element_blank(), -->
+<!--         axis.title.y = element_blank(), -->
+<!--         axis.text.y  = element_blank(), -->
+<!--         axis.ticks.y = element_blank(), -->
+<!--         panel.grid.major = element_blank(), -->
+<!--         panel.grid.minor = element_blank()) -->
 
-map_howownership / 
-  map_median_income +
-  plot_annotation(tag_levels = "A") & 
-  theme(plot.tag = element_text(size = 10))
-```
+<!-- map_howownership /  -->
+<!--   map_median_income + -->
+<!--   plot_annotation(tag_levels = "A") &  -->
+<!--   theme(plot.tag = element_text(size = 10)) -->
+<!-- ``` -->
 
-\clearpage
+<!-- \clearpage -->
 
 ## Chapter review {#chp5-review}
 

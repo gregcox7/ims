@@ -1,4 +1,4 @@
-# Applications: Infer {#inference-applications}
+# Summary: Inference {#inference-applications}
 
 ```{r, include = FALSE}
 source("_common.R")
@@ -128,9 +128,9 @@ tsim_table <- tribble(
   "Response variable",     "Numeric",          "Numeric", "Numeric",
   "Parameter of interest", "Mean: $\\mu$",     "Paired mean: $\\mu_{diff}$",     "Difference in means: $\\mu_1 - \\mu_2$",
   "Statistic of interest", "Mean: $\\bar{x}$", "Paired mean: $\\bar{x}_{diff}$", "Difference in means: $\\bar{x}_1 - \\bar{x}_2$",
-  "Standard error", "$\\frac{s}{\\sqrt{n}}$", "$\\frac{s_{diff}}{\\sqrt{n_{diff}}}$", "$\\sqrt{\\frac{s_1^2}{n_1} + \\frac{s_2^2}{n_2}}$",
-  "Degrees of freedom",    "$n-1$", "$n_{diff} -1$", "$\\min(n_1 -1, n_2 - 1)$",
-  "Conditions",            "1. Independence, 2. Normality or large samples", "1. Independence, 2. Normality or large samples", "1. Independence, 2. Normality or large samples"
+  "Standard error", "$\\frac{s}{\\sqrt{n}}$", "$\\frac{s_{diff}}{\\sqrt{n_{diff}}}$", "$s_{\\textit{pool}} \\sqrt{\\frac{1}{n_1} + \\frac{1}{n_2}} \\text{ where} \\\\ s_{\\textit{pool}} = \\sqrt{\\frac{(n_1 - 1) s^2_1 + (n_2 - 1) s^2_2}{n_1 + n_2 - 2}}$",
+  "Degrees of freedom",    "$n-1$", "$n_{diff} -1$", "$n_1 + n_2 - 2$",
+  "Conditions",            "1. Independence, 2. Normality or large samples", "1. Independence, 2. Normality or large samples", "1. Independence, 2. Normality or large samples, 3. Similar variability"
 )
 
 tsim_table %>%
@@ -151,9 +151,9 @@ tsim_table %>%
 -   Verify conditions for using the $t$-distribution.
 
     -   One-sample or differences from paired data: the observations (or differences) must be independent and nearly normal. For larger sample sizes, we can relax the nearly normal requirement, e.g., slight skew is okay for sample sizes of 15, moderate skew for sample sizes of 30, and strong skew for sample sizes of 60.
-    -   For a difference of means when the data are not paired: each sample mean must separately satisfy the one-sample conditions for the $t$-distribution, and the data in the groups must also be independent.
+    -   For a difference of means when the data are not paired: each sample mean must separately satisfy the one-sample conditions for the $t$-distribution, the data in the groups must be independent, and the variability must be similar between groups.
 
--   Compute the point estimate of interest, the standard error, and the degrees of freedom For $df,$ use $n-1$ for one sample, and for two samples use either statistical software or the smaller of $n_1 - 1$ and $n_2 - 1.$
+-   Compute the point estimate of interest, the standard error, and the degrees of freedom For $df,$ use $n-1$ for one sample and $n_1 + n_2 - 2$ and for two samples.
 
 -   Compute the T score and p-value.
 
@@ -582,112 +582,112 @@ p_4 / p_16 +
 Based on the p-values (a measure of deviation from the null claim), we can conclude that the data provide convincing evidence of a difference in mean redundant adjective usage percentages between languages in 4 item displays (small p-value) but not in 16 item displays (not small p-value).
 The results suggests that language patterns around redundant adjective usage might be more similar for denser displays than sparser displays.
 
-\clearpage
+<!-- \clearpage -->
 
-## Interactive R tutorials {#inference-tutorials}
+<!-- ## Interactive R tutorials {#inference-tutorials} -->
 
-Navigate the concepts you've learned in this chapter in R using the following self-paced tutorials.
-All you need is your browser to get started!
+<!-- Navigate the concepts you've learned in this chapter in R using the following self-paced tutorials. -->
+<!-- All you need is your browser to get started! -->
 
-::: {.alltutorials data-latex=""}
-[Tutorial 5: Statistical inference](https://openintrostat.github.io/ims-tutorials/05-infer/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintrostat.github.io/ims-tutorials/05-infer
-```
-:::
+<!-- ::: {.alltutorials data-latex=""} -->
+<!-- [Tutorial 5: Statistical inference](https://openintrostat.github.io/ims-tutorials/05-infer/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintrostat.github.io/ims-tutorials/05-infer -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 1: Inference for a single proportion](https://openintro.shinyapps.io/ims-05-infer-01/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-01
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 1: Inference for a single proportion](https://openintro.shinyapps.io/ims-05-infer-01/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-01 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 2: Hypothesis tests to compare proportions](https://openintro.shinyapps.io/ims-05-infer-02/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-02
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 2: Hypothesis tests to compare proportions](https://openintro.shinyapps.io/ims-05-infer-02/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-02 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 3: Chi-squared test of independence](https://openintro.shinyapps.io/ims-05-infer-03/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-03
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 3: Chi-squared test of independence](https://openintro.shinyapps.io/ims-05-infer-03/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-03 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 4: Chi-squared goodness of fit Test](https://openintro.shinyapps.io/ims-05-infer-04/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-04
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 4: Chi-squared goodness of fit Test](https://openintro.shinyapps.io/ims-05-infer-04/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-04 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 5: Bootstrapping for estimating a parameter](https://openintro.shinyapps.io/ims-05-infer-05/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-05
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 5: Bootstrapping for estimating a parameter](https://openintro.shinyapps.io/ims-05-infer-05/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-05 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 6: Introducing the t-distribution](https://openintro.shinyapps.io/ims-05-infer-06/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-06
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 6: Introducing the t-distribution](https://openintro.shinyapps.io/ims-05-infer-06/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-06 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 7: Inference for difference in two means](https://openintro.shinyapps.io/ims-05-infer-07/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-07
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 7: Inference for difference in two means](https://openintro.shinyapps.io/ims-05-infer-07/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-07 -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.singletutorial data-latex=""}
-[Tutorial 5 - Lesson 8: Comparing many means](https://openintro.shinyapps.io/ims-05-infer-08/)\
-```{asis, echo = knitr::is_latex_output()}
-https://openintro.shinyapps.io/ims-05-infer-08
-```
-:::
+<!-- ::: {.singletutorial data-latex=""} -->
+<!-- [Tutorial 5 - Lesson 8: Comparing many means](https://openintro.shinyapps.io/ims-05-infer-08/)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://openintro.shinyapps.io/ims-05-infer-08 -->
+<!-- ``` -->
+<!-- ::: -->
 
-```{asis, echo = knitr::is_latex_output()}
-You can also access the full list of tutorials supporting this book at\
-[https://openintrostat.github.io/ims-tutorials](https://openintrostat.github.io/ims-tutorials).
-```
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- You can also access the full list of tutorials supporting this book at\ -->
+<!-- [https://openintrostat.github.io/ims-tutorials](https://openintrostat.github.io/ims-tutorials). -->
+<!-- ``` -->
 
-```{asis, echo = knitr::is_html_output()}
-You can also access the full list of tutorials supporting this book [here](https://openintrostat.github.io/ims-tutorials).
-```
+<!-- ```{asis, echo = knitr::is_html_output()} -->
+<!-- You can also access the full list of tutorials supporting this book [here](https://openintrostat.github.io/ims-tutorials). -->
+<!-- ``` -->
 
-\vspace{-3mm}
+<!-- \vspace{-3mm} -->
 
-## R labs {#inference-labs}
+<!-- ## R labs {#inference-labs} -->
 
-Further apply the concepts you've learned in this part in R with computational labs that walk you through a data analysis case study.
+<!-- Further apply the concepts you've learned in this part in R with computational labs that walk you through a data analysis case study. -->
 
-::: {.singlelab data-latex=""}
-[Inference for categorical responses - Texting while driving](https://www.openintro.org/go?id=ims-r-lab-infer-1)\
-```{asis, echo = knitr::is_latex_output()}
-https://www.openintro.org/go?id=ims-r-lab-infer-1
-```
-:::
+<!-- ::: {.singlelab data-latex=""} -->
+<!-- [Inference for categorical responses - Texting while driving](https://www.openintro.org/go?id=ims-r-lab-infer-1)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://www.openintro.org/go?id=ims-r-lab-infer-1 -->
+<!-- ``` -->
+<!-- ::: -->
 
-\vspace{-2mm}
+<!-- \vspace{-2mm} -->
 
-::: {.singlelab data-latex=""}
-[Inference for numerical responses - Youth Risk Behavior Surveillance System](https://www.openintro.org/go?id=ims-r-lab-infer-2)\
-```{asis, echo = knitr::is_latex_output()}
-https://www.openintro.org/go?id=ims-r-lab-infer-2
-```
-:::
+<!-- ::: {.singlelab data-latex=""} -->
+<!-- [Inference for numerical responses - Youth Risk Behavior Surveillance System](https://www.openintro.org/go?id=ims-r-lab-infer-2)\ -->
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- https://www.openintro.org/go?id=ims-r-lab-infer-2 -->
+<!-- ``` -->
+<!-- ::: -->
 
-```{asis, echo = knitr::is_latex_output()}
-You can also access the full list of labs supporting this book at\
-[https://www.openintro.org/go?id=ims-r-labs](https://www.openintro.org/go?id=ims-r-labs).
-```
+<!-- ```{asis, echo = knitr::is_latex_output()} -->
+<!-- You can also access the full list of labs supporting this book at\ -->
+<!-- [https://www.openintro.org/go?id=ims-r-labs](https://www.openintro.org/go?id=ims-r-labs). -->
+<!-- ``` -->
 
-```{asis, echo = knitr::is_html_output()}
-You can also access the full list of labs supporting this book [here](https://www.openintro.org/go?id=ims-r-labs).
-```
+<!-- ```{asis, echo = knitr::is_html_output()} -->
+<!-- You can also access the full list of labs supporting this book [here](https://www.openintro.org/go?id=ims-r-labs). -->
+<!-- ``` -->
