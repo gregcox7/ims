@@ -8,6 +8,7 @@ _book
 _bookdown_files
 *.xlsx
 ims.rds
+imsp.rds
 icons8
 unused/
 tex-experimentation/
@@ -18,4 +19,11 @@ ims.toc
 ims.tex
 ims.pdf
 ims.md
+imsp.aux
+imsp.idx
+imsp.log
+imsp.toc
+imsp.tex
+imsp.pdf
+imsp.md
 ims.synctex(busy)
