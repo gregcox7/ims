@@ -37,12 +37,12 @@ knitr::write_bib(c(.packages(),
 \vfill
 
 ```{asis, echo = knitr::is_html_output()}
-![IMS1](images/IMS1_front_cover.png){.cover width="250"}
+![IMS1](images/IMSP_front_cover.png){.cover width="250"}
 This is the website for a modified version of **Introduction to Modern Statistics**, First Edition by Mine Çetinkaya-Rundel and Johanna Hardin, modified by Gregory Cox.
 
-Introduction to Modern Statistics, which we'll refer to as IMS going forward, is a textbook from the [OpenIntro](https://www.openintro.org/) project.
+Introduction to Modern Statistics, which we'll refer to as IMS, is a textbook from the [OpenIntro](https://www.openintro.org/) project.
 
-The book will always be available for free here. The original version of IMS is also available in PDF (for free or for the amount you choose to donate to the OpenIntro project) on Leanpub and in black&white paperback for purchase for $20.
+The original version of IMS is available in PDF (for free or for the amount you choose to donate to the OpenIntro project) on Leanpub and in black&white paperback for purchase for $20.
 <br><br>
 <a href="https://leanpub.com/imstat" target="_blank"><img src="images/_icons/file.png" width="30px">&nbsp;<strong>Download PDF</strong></a>
 <br>
@@ -64,10 +64,10 @@ First Edition.
 
 Version date: `r format(Sys.Date(), "%B %d, %Y")`.
 
-The original textbook and its supplements, including slides, labs, and interactive tutorials, may be downloaded for free at\
+The original IMS textbook and its supplements, including slides, labs, and interactive tutorials, may be downloaded for free at\
 [**openintro.org/book/ims**](http://openintro.org/book/ims).
 
-This textbook is a derivative of *OpenIntro Statistics* 4th Edition and *Introduction to Statistics with Randomization and Simulation* 1st Edition by Diez, Barr, and Çetinkaya-Rundel, and it's available under a Creative Commons Attribution-ShareAlike 3.0 Unported United States License.
+This textbook is itself a derivative of *OpenIntro Statistics* 4th Edition and *Introduction to Statistics with Randomization and Simulation* 1st Edition by Diez, Barr, and Çetinkaya-Rundel, and it's available under a Creative Commons Attribution-ShareAlike 3.0 Unported United States License.
 License details are available at the Creative Commons website:\
 [**creativecommons.org**](https://www.openintro.org/go/?id=creativecommons_org&referrer=ims1_pdf).
 

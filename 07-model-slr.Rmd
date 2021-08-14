@@ -4,12 +4,13 @@
 source("_common.R")
 ```
 
-# Linear regression with a single predictor {#model-slr}
+# Linear regression {#model-slr}
 
 ::: {.chapterintro data-latex=""}
 Linear regression is a very powerful statistical technique.
 Many people have some familiarity with regression models just from reading the news, where straight lines are overlaid on scatterplots.
-Linear models can be used for prediction or to evaluate whether there is a linear relationship between a numerical variable on the horizontal axis and the average of the numerical variable on the vertical axis.
+Linear models can be used to predict the value of a response variable based on the value of an explanatory variable.
+Linear models can also be used to evaluate whether there is a linear relationship between a numerical variable on the horizontal axis and the average of the numerical variable on the vertical axis.
 :::
 
 ## Fitting a line, residuals, and correlation {#fit-line-res-cor}
@@ -19,9 +20,9 @@ In this section, we define the form of a linear model, explore criteria for what
 
 ### Fitting a line to data
 
-Figure \@ref(fig:perfLinearModel) shows two variables whose relationship can be modeled perfectly with a straight line.
+Figure \@ref(fig:perfLinearModel) shows two variables whose relationship can be modeled perfectly with a straight line.
 The equation for the line is $y = 5 + 64.96 x.$ Consider what a perfect linear relationship means: we know the exact value of $y$ just by knowing the value of $x.$ A perfect linear relationship is unrealistic in almost any natural process.
-For example, if we took family income ($x$), this value would provide some useful information about how much financial support a college may offer a prospective student ($y$).
+For example, if we took family income ($x$), this value would provide some useful information about how much financial support a college may offer a prospective student ($y$).
 However, the prediction would be far from perfect, since other factors play a role in financial support beyond a family's finances.
 
 ```{r perfLinearModel, fig.cap = "Requests from twelve separate buyers were simultaneously placed with a trading company to purchase Target Corporation stock (ticker TGT, December 28th, 2018), and the total cost of the shares were reported. Because the cost is computed using a linear formula, the linear fit is perfect."}
@@ -51,11 +52,11 @@ If the observed data is a random sample from a target population that we are int
 The Greek letter $\beta$ is pronounced *beta*, listen to the pronunciation [here](https://youtu.be/PStgY5AcEIw?t=7).
 :::
 
-When we use $x$ to predict $y,$ we usually call $x$ the **predictor** variable and we call $y$ the **outcome**.
-We also often drop the $e$ term when writing down the model since our main focus is often on the prediction of the average outcome.
+When we use $x$ to predict $y,$ we call $x$ the **explanatory** variable and we call $y$ the **response** variable.
+We also often drop the $e$ term when writing down the model since our main focus is often on the prediction of the average response.
 
 ```{r include=FALSE}
-terms_chp_7 <- c("predictor", "outcome")
+terms_chp_7 <- c("explanatory variable", "response variable")
 ```
 
 It is rare for all of the data to fall perfectly on a straight line.
@@ -137,7 +138,7 @@ ggplot(possum, aes(x = total_l, y = head_l)) +
 ```
 
 We want to describe the relationship between the head length and total length variables in the possum dataset using a line.
-In this example, we will use the total length as the predictor variable, $x,$ to predict a possum's head length, $y.$ We could fit the linear relationship by eye, as in Figure \@ref(fig:scattHeadLTotalLLine).
+In this example, we will use the total length as the explanatory variable, $x,$ to predict a possum's head length, $y.$ We could fit the linear relationship by eye, as in Figure \@ref(fig:scattHeadLTotalLLine).
 
 ```{r scattHeadLTotalLLine, fig.cap = "A reasonable linear model was fit to represent the relationship between head length and total length."}
 ggplot(possum, aes(x = total_l, y = head_l)) +
@@ -246,7 +247,7 @@ ggplot(possum, aes(x = total_l, y = head_l)) +
 ::: {.important data-latex=""}
 **Residual: Difference between observed and expected.**
 
-The residual of the $i^{th}$ observation $(x_i, y_i)$ is the difference of the observed outcome ($y_i$) and the outcome we would predict based on the model fit ($\hat{y}_i$):
+The residual of the $i^{th}$ observation $(x_i, y_i)$ is the difference of the observed response ($y_i$) and the response we would predict based on the model fit ($\hat{y}_i$):
 
 $$e_i = y_i - \hat{y}_i$$
 
@@ -289,7 +290,7 @@ Compute the residuals for the observation marked by a blue diamond, $(85.0, 98.6
 
 Residuals are helpful in evaluating how well a linear model fits a dataset.
 We often display them in a scatterplot such as the one shown in Figure \@ref(fig:scattHeadLTotalLResidualPlot) for the regression line in Figure \@ref(fig:scattHeadLTotalLLine-highlighted).
-The residuals are plotted with their predicted outcome variable value as the horizontal coordinate, and the vertical coordinate as the residual.
+The residuals are plotted with their predicted response variable value as the horizontal coordinate, and the vertical coordinate as the residual.
 For instance, the point $(85.0, 98.6)$ (marked by the blue diamond) had a predicted value of 91.4 mm and had a residual of 7.45 mm, so in the residual plot it is placed at $(91.4, 7.45).$ Creating a residual plot is sort of like tipping the scatterplot over so the regression line is horizontal, as indicated by the dashed line.
 
 ```{r scattHeadLTotalLResidualPlot, fig.cap = "Residual plot for the model predicting head length from total length for brushtail possums."}
@@ -661,7 +662,7 @@ Is the correlation positive or negative in Figure \@ref(fig:elmhurstScatterWLine
 We begin by thinking about what we mean by the "best" line.
 Mathematically, we want a line that has small residuals.
 But beyond the mathematical reasons, hopefully it also makes sense intuitively that whatever line we fit, the residuals should be small (i.e., the points should be close to the line).
-The first option that may come to mind is to minimize the sum of the residual magnitudes:
+The first option that may come to mind is to minimize the sum of the absolute values of the residuals:
 
 $$|e_1| + |e_2| + \dots + |e_n|$$
 
@@ -776,8 +777,8 @@ In other applications, the intercept may have little or no practical value if th
 ::: {.important data-latex=""}
 **Interpreting parameters estimated by least squares.**
 
-The slope describes the estimated difference in the predicted average outcome of $y$ if the predictor variable $x$ happened to be one unit larger.
-The intercept describes the average outcome of $y$ if $x = 0$ *and* the linear model is valid all the way to $x = 0$ (values of $x = 0$ are not observed or relevant in many applications).
+The slope describes the estimated difference in the predicted average response $y$ if the explanatory variable $x$ increased by one unit.
+The intercept describes the average response $y$ if $x = 0$ *and* the linear model is valid all the way to $x = 0$ (values of $x = 0$ are not observed or relevant in many applications).
 :::
 
 <!-- If you would like to learn more about using R to fit linear models, see Section \@ref(model-tutorials) for the interactive R tutorials. -->
@@ -789,9 +790,9 @@ Calculating the values by hand leverages two properties of the least squares lin
 
 $$b_1 = \frac{s_y}{s_x} r $$
 
-where $r$ is the correlation between the two variables, and $s_x$ and $s_y$ are the sample standard deviations of the predictor and outcome, respectively.
+where $r$ is the correlation between the two variables, and $s_x$ and $s_y$ are the sample standard deviations of the explanatory and response variables, respectively.
 
-2.  If $\bar{x}$ is the sample mean of the predictor variable and $\bar{y}$ is the sample mean of the outcome variable, then the point $(\bar{x}, \bar{y})$ falls on the least squares line.
+2.  If $\bar{x}$ is the sample mean of the explanatory variable and $\bar{y}$ is the sample mean of the response variable, then the point $(\bar{x}, \bar{y})$ falls on the least squares line.
 
 Table \@ref(tab:summaryStatsElmhurstRegr) shows the sample means for the family income and gift aid as \$101,780 and \$19,940, respectively.
 We could plot the point $(102, 19.9)$ on Figure \@ref(fig:elmhurstScatterWLine) to verify it falls on the least squares line (the solid line).
@@ -924,24 +925,24 @@ If provided with a linear model, we might like to describe how closely the data 
 terms_chp_7 <- c(terms_chp_7, "R-squared")
 ```
 
-The $R^2$ of a linear model describes the amount of variation in the outcome variable that is explained by the least squares line.
+The $R^2$ of a linear model describes the amount of variation in the response variable that is explained by the least squares line.
 For example, consider the Elmhurst data, shown in Figure \@ref(fig:elmhurstScatterWLine).
-The variance of the outcome variable, aid received, is about $s_{aid}^2 \approx 29.8$ million (calculated from the data, some of which is shown in Table \@ref(tab:elmhurst-data)).
+The variance of the response variable, aid received, is about $s_{aid}^2 \approx 29.8$ million (calculated from the data, some of which is shown in Table \@ref(tab:elmhurst-data)).
 However, if we apply our least squares line, then this model reduces our uncertainty in predicting aid using a student's family income.
 The variability in the residuals describes how much variation remains after using the model: $s_{_{RES}}^2 \approx 22.4$ million.
 In short, there was a reduction of $$\frac{s_{aid}^2 - s_{_{RES}}^2}{s_{aid}^2}
   = \frac{29800 - 22400}{29800}
   = \frac{7500}{29800}
-  \approx 0.25,$$ or about 25%, of the outcome variable's variation by using information about family income for predicting aid using a linear model.
+  \approx 0.25,$$ or about 25%, of the response variable's variation by using information about family income for predicting aid using a linear model.
 It turns out that $R^2$ corresponds exactly to the squared value of the correlation:
 
 $$r = -0.499 \rightarrow R^2 = 0.25$$
 
 ::: {.guidedpractice data-latex=""}
-If a linear model has a very strong negative relationship with a correlation of -0.97, how much of the variation in the outcome is explained by the predictor?[^model-slr-8]
+If a linear model has a very strong negative relationship with a correlation of -0.97, how much of the variation in the response variable is explained by the explanatory variable?[^model-slr-8]
 :::
 
-[^model-slr-8]: About $R^2 = (-0.97)^2 = 0.94$ or 94% of the variation in the outcome variable is explained by the linear model.
+[^model-slr-8]: About $R^2 = (-0.97)^2 = 0.94$ or 94% of the variation in the response variable is explained by the linear model.
 
 $R^2$ is also called the **coefficient of determination**.
 
@@ -950,10 +951,10 @@ terms_chp_7 <- c(terms_chp_7, "coefficient of determination")
 ```
 
 ::: {.important data-latex=""}
-**Coefficient of determination: proportion of variability in the outcome variable explained by the model.**
+**Coefficient of determination: proportion of variability in the response variable explained by the model.**
 
 Since $r$ is always between -1 and 1, $R^2$ will always be between 0 and 1.
-This statistic is called the **coefficient of determination**, and it measures the proportion of variation in the outcome variable, $y,$ that can be explained by the linear model with predictor $x.$
+This statistic is called the **coefficient of determination**, and it measures the proportion of variation in the response variable, $y,$ that can be explained by the linear model with explanatory variable $x.$
 :::
 
 More generally, $R^2$ can be calculated as a ratio of a measure of variability around the line divided by a measure of total variability.
@@ -997,12 +998,12 @@ Among 50 students in the `elmhurst` dataset, the total variability in gift aid i
 Since we know $SSE$ and $SST,$ we can calculate $R^2$ as $$R^2 = 1 - \frac{SSE}{SST} = 1 - \frac{1098}{1461} = 0.25,$$ the same value we found when we squared the correlation: $R^2 = (-0.499)^2 = 0.25.$
 :::
 
-[^model-slr-10]: $SST$ can be calculated by finding the sample variance of the outcome variable, $s^2$ and multiplying by $n-1.$
+[^model-slr-10]: $SST$ can be calculated by finding the sample variance of the response variable, $s^2$ and multiplying by $n-1.$
 
-### Categorical predictors with two levels {#categorical-predictor-two-levels}
+### Categorical explanatory variables with two levels {#categorical-predictor-two-levels}
 
-Categorical variables are also useful in predicting outcomes.
-Here we consider a categorical predictor with two levels (recall that a *level* is the same as a *category*).
+Categorical variables are also useful in predicting the average of a response variable.
+Here we consider a categorical explanatory variable with two levels (recall that a *level* is the same as a *category*).
 We'll consider Ebay auctions for a video game, *Mario Kart* for the Nintendo Wii, where both the total price of the auction and the condition of the game were recorded.
 Here we want to predict total price based on game condition, which takes values `used` and `new`.
 
@@ -1088,14 +1089,14 @@ The slope indicates that, on average, new games sell for about \$10.9 more than 
 :::
 
 ::: {.important data-latex=""}
-**Interpreting model estimates for categorical predictors.**
+**Interpreting model estimates for categorical explanatory variables.**
 
-The estimated intercept is the value of the outcome variable for the first category (i.e., the category corresponding to an indicator value of 0).
-The estimated slope is the average change in the outcome variable between the two categories.
+The estimated intercept is the value of the response variable for the first category (i.e., the category corresponding to an indicator value of 0).
+The estimated slope is the average change in the response variable between the two categories.
 :::
 
 Note that, fundamentally, the intercept and slope interpretations don't change when modeling categorical variables with two levels.
-However, when the predictor variable is binary, the coefficient estimates ($b_0$ and $b_1$) are directly interpretable with respect to the dataset at hand.
+However, when the explanatory variable is binary, the coefficient estimates ($b_0$ and $b_1$) are directly interpretable with respect to the dataset at hand.
 
 <!-- We'll elaborate further on modeling categorical predictors in Chapter \@ref(model-mlr), where we examine the influence of many predictor variables simultaneously using multiple regression. -->
 
@@ -1355,8 +1356,8 @@ For instance, if a financial firm ignored the largest market swings -- the "outl
 Throughout this chapter, the nuances of the linear model have been described.
 You have learned how to create a linear model with explanatory variables that are numerical (e.g., total possum length) and those that are categorical (e.g., whether or not a video game was new).
 The residuals in a linear model are an important metric used to understand how well a model fits; high leverage points, influential points, and other types of outliers can impact the fit of a model.
-Correlation is a measure of the strength and direction of the linear relationship of two variables, without specifying which variable is the explanatory and which is the outcome.
-Future chapters will focus on generalizing the linear model from the sample of data to claims about the population of interest.
+Correlation is a measure of the strength and direction of the linear relationship of two variables, without specifying which variable is the explanatory and which is the response.
+<!-- Future chapters will focus on generalizing the linear model from the sample of data to claims about the population of interest. -->
 
 ### Terms
 
