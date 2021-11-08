@@ -1,5 +1,5 @@
-book_filename: "imsp"
-cover_image: "images/IMSP_front_cover.png"
+book_filename: "msmp"
+cover_image: "images/msmp_front_cover.png"
 delete_merged_file: true
 new_session: true
 language:
