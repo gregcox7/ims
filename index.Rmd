@@ -29,7 +29,7 @@ knitr::write_bib(c(.packages(),
 
 ::: {.welcome}
 ```{asis, echo = knitr::is_html_output()}
-# Welcome Modern Statistical Methods for Psychology {.unnumbered}
+# Welcome to Modern Statistical Methods for Psychology {.unnumbered}
 ```
 
 \chapter*{}
