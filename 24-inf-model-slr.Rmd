@@ -815,7 +815,7 @@ When fitting a least squares line, we generally require
 -   **Independent observations.** Be cautious about applying regression to data, which are sequential observations in time such as a stock price each day.
     Such data may have an underlying structure that should be considered in a model and analysis.
     An example of a dataset where successive observations are not independent is shown in the fourth panel of Figure \@ref(fig:whatCanGoWrongWithLinearModel).
-    There are also other instances where correlations within the data are important, which is further discussed in Chapter \@ref(inf-model-mlr).
+    <!-- There are also other instances where correlations within the data are important, which is further discussed in Chapter \@ref(inf-model-mlr). -->
 
 -   **Nearly normal residuals.** Generally, the residuals must be nearly normal.
     When this condition is found to be unreasonable, it is usually because of outliers or concerns about influential points, which we'll talk about more in Section \@ref(outliers-in-regression).
@@ -1014,7 +1014,7 @@ The linearity condition is among the most important if your goal is to understan
 For example, the value of the slope will not be at all meaningful if the true relationship between $x$ and $y$ is quadratic, as in Figure \@ref(fig:notGoodAtAllForALinearModel).
 Not only should we be cautious about the inference, but the model *itself* is also not an accurate portrayal of the relationship between the variables.
 
-In Section \@ref(inf-model-mlr) we discuss model modifications that can often lead to an excellent fit of strong relationships other than linear ones.
+Sometimes it may be possible to *transform* either the explanatory or response variable such that the relationship between the transformed variables is fit well by a line.
 However, an extended discussion on the different methods for modeling functional forms other than linear is outside the scope of this text.
 
 **The importance of Independence**
@@ -1060,7 +1060,7 @@ When the technical conditions are met, the least squares regression model and in
 In addition to being ubiquitous, however, an additional advantage to the least squares regression model (and related inference) is that the linear model has important extensions (which are not trivial to implement with bootstrapping and randomization tests).
 In particular, random effects models, repeated measures, and interaction are all linear model extensions which require the above technical conditions.
 When the technical conditions hold, the extensions to the linear model can provide important insight into the data and research question at hand.
-We will discuss some of the extended modeling and associated inference in Chapter \@ref(inf-model-mlr) and Section \@ref(inf-model-logistic).
+<!-- We will discuss some of the extended modeling and associated inference in Chapter \@ref(inf-model-mlr) and Section \@ref(inf-model-logistic). -->
 Many of the techniques used to deal with technical condition violations are outside the scope of this text, but they are taught in universities in the very next class after this one.
 If you are working with linear models or curious to learn more, we recommend that you continue learning about statistical methods applicable to a larger class of datasets.
 

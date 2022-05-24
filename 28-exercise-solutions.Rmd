@@ -156,12 +156,12 @@ source("_common.R")
 
 <!-- Application chapter, no exercises. -->
 
-<!-- ## Chapter 16 {#exercise-solutions-24 .unlisted} -->
+## Chapter 18 {#exercise-solutions-24 .unlisted}
 
-<!-- ::: {.exercises-solution} -->
-<!-- ```{r sa-24, child = "exercises/24-sa-inf-model-slr.Rmd"} -->
-<!-- ``` -->
-<!-- ::: -->
+::: {.exercises-solution}
+```{r sa-24, child = "exercises/24-sa-inf-model-slr.Rmd"}
+```
+:::
 
 <!-- ## Chapter 25 {#exercise-solutions-25 .unlisted} -->
 

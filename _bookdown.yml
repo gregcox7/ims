@@ -32,7 +32,7 @@ rmd_files: [
   "21-inference-paired-means.Rmd",
   "22-inference-many-means.Rmd",
   "23-inference-applications.Rmd",
-  # "24-inf-model-slr.Rmd",
+  "24-inf-model-slr.Rmd",
   # "25-inf-model-mlr.Rmd",
   # "26-inf-model-logistic.Rmd",
   # "27-inf-model-applications.Rmd",

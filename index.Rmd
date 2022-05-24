@@ -4,7 +4,7 @@ site: bookdown::bookdown_site
 title: "Modern Statistical Methods for Psychology"
 author: "Mine Çetinkaya-Rundel and Johanna Hardin, tuned by Gregory Cox"
 description: "Modern Statistical Methods for Psychology"
-# url: 'https\://openintro-ims.netlify.app/'
+url: 'https\://bookdown.org/gregcox7/ims_psych/'
 link-citations: yes
 bibliography: [book.bib, packages.bib, eoce.bib]
 biblio-style: apalike
@@ -40,13 +40,7 @@ knitr::write_bib(c(.packages(),
 ![MSMP](images/msmp_front_cover.png){.cover width="250"}
 This is the website for **Modern Statistical Methods for Psychology**, a modified version of **Introduction to Modern Statistics**, First Edition by Mine Çetinkaya-Rundel and Johanna Hardin, as modified by Gregory Cox.
 
-Introduction to Modern Statistics is a textbook from the [OpenIntro](https://www.openintro.org/) project.
-
-The original version of IMS is available in PDF (for free or for the amount you choose to donate to the OpenIntro project) on Leanpub and in black&white paperback for purchase for $20.
-<br><br>
-<a href="https://leanpub.com/imstat" target="_blank"><img src="images/_icons/file.png" width="30px">&nbsp;<strong>Download PDF</strong></a>
-<br>
-<a href="https://www.openintro.org/go?id=ims1_bw_pb&referrer=/book/ims/online"><img src="images/_icons/book.png" width="30px">&nbsp;<strong>Purchase paperback</strong></a>
+The original Introduction to Modern Statistics is a textbook from the [OpenIntro](https://www.openintro.org/) project.
 <br><br>
 ---
 <br><br>
@@ -54,7 +48,7 @@ The original version of IMS is available in PDF (for free or for the amount you 
 
 Version date of this modification: `r format(Sys.Date(), "%B %d, %Y")`.
 
-The original *Introduction to Modern Statistics* textbook and its supplements, including slides, labs, and interactive tutorials, may be downloaded for free at\
+The original version of the *Introduction to Modern Statistics* textbook and its supplements, including slides, labs, and interactive tutorials, may be downloaded for free at\
 [**openintro.org/book/ims**](http://openintro.org/book/ims).
 
 This textbook is itself a derivative of *OpenIntro Statistics* 4th Edition and *Introduction to Statistics with Randomization and Simulation* 1st Edition by Diez, Barr, and Çetinkaya-Rundel, and it's available under a Creative Commons Attribution-ShareAlike 3.0 Unported United States License.
